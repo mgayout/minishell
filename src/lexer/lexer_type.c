@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:26:41 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 15:06:19 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 16:53:47 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	token_type(t_lex *lexer, char *prompt)
 	return (1);
 }
 
-int	string_type(t_data *data, t_lex *lexer)
+int	string_type(t_data *data, t_lex *lexer, bool space)
 {
 	int	i;
 
@@ -43,12 +43,12 @@ int	string_type(t_data *data, t_lex *lexer)
 			while (count_quotes(data->prompt))
 				data->prompt = add_final_quote(data->prompt);	
 			if (data->prompt[i] == '\'')
-				i += data_quote(lexer, data->prompt + i, "'");
+				i += data_quote(lexer, data->prompt + i, "'", space);
 			else if (data->prompt[i] == '"')
-				i += data_quote(lexer, data->prompt + i, "\"");
+				i += data_quote(lexer, data->prompt + i, "\"", space);
 		}
 		else
-			i += data_noquote(lexer, data->prompt + i, "\"'><| \t\r\v\f");
+			i += data_noquote(lexer, data->prompt + i, "\"'><| \t\r\v\f", space);
 	}
 	return (i);
 }

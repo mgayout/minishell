@@ -6,7 +6,7 @@
 #    By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 09:16:25 by mgayout           #+#    #+#              #
-#    Updated: 2024/05/17 18:27:31 by mgayout          ###   ########.fr        #
+#    Updated: 2024/05/21 12:40:42 by mgayout          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,14 +45,14 @@ SRC_EXP =	expander \
 			expander_utils \
 			expander_function \
 
-#SRC_EXE =	exec \
+SRC_EXE =	exec \
 			exec_init \
 			exec_file_cmd \
 			exec_file_pipeline \
 			exec_utils \
 			exec_cmd \
 
-#SRC_BUI =	builtins echo cd pwd export unset env exit \
+SRC_BUI =	builtins echo cd pwd export unset env exit \
 
 SRCS =	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC)))
 

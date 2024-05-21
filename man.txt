@@ -350,3 +350,7 @@ DECLARATION = int tputs(const char *str, int affcnt, int (*putc)(int))
 MAN = 
 
 --------------------------------------------------
+
+cat file"
+"
+---->file'$'\n

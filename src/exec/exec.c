@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:29:25 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/16 12:42:20 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 12:41:20 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exec(t_data *data)
 {
-	data->exec = init_exe(data->parser);
+	data->exec = init_exe(data->expander);
 	if (data->exec->nb_cmd == 1)
 		exec_cmd_file(data);
 	else

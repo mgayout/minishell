@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:45:51 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/15 14:10:08 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 18:09:00 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,8 @@ void	echo_builtin(t_data *data, t_pid child)
 {
 	if (!data->prompt)
 		return ;
-	printf("%s\n", child.lst->arg);
+	if (child.lst->arg)
+		printf("%s\n", child.lst->arg);
+	else
+		printf("\n");
 }

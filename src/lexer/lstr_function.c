@@ -6,25 +6,24 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:56:07 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 18:14:42 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 18:07:01 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_lstr	*new_lstr(char *str, t_lex_quote n)
+t_lstr	*new_lstr(void)
 {
 	t_lstr	*new;
 
 	new = (t_lstr *)ft_calloc(1, sizeof(t_lstr));
 	if (!new)
 		return (NULL);
-	new->str = ft_strdup(str);
-	new->quote = n;
+	new->str = NULL;
 	new->id = 0;
 	new->heredoc = false;
+	new->space = false;
 	new->next = NULL;
-	new->prev = NULL;
 	return (new);
 }
 
@@ -68,7 +67,6 @@ void	lstradd_back(t_lstr **lst, t_lstr *new)
 	{
 		last = *lst;
 		last = lstrlast(*lst);
-		new->prev = last;
 		last->next = new;
 		return ;
 	}
@@ -82,10 +80,18 @@ char	*lstrjoin(t_lstr *lst)
 	str = NULL;
 	while (lst)
 	{
-		if (!str)
-			str = ft_strdup(lst->str);
-		else
-			str = ft_strjoin(str, lst->str);
+		if (lst->str)
+		{
+			if (!str)
+				str = ft_strdup(lst->str);
+			else
+			{
+				if (lst->space)
+					str = ft_strjoin(ft_strjoin(str, " "), lst->str);
+				else
+					str = ft_strjoin(str, lst->str);
+			}	
+		}
 		lst = lst->next;
 	}
 	return (str);

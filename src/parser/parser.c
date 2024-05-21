@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:55:09 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 17:29:43 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 17:05:42 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,39 +72,55 @@ int	last_parser(t_par *parser)
 void	print_par(t_data *data)
 {
 	t_par	*parser;
+	t_lstr	*tmp;
 
 	parser = data->parser;
+	printf("\nPARSER\n\n");
 	while (parser)
 	{
 		printf("id = %d\n", parser->id);
-		while (parser->cmd)
+		tmp = parser->cmd;
+		while (tmp)
 		{
-			if (parser->cmd->id != 0)
-				printf("cmd id = %d\n", parser->cmd->id);
-			printf("cmd = %s\n", parser->cmd->str);
-			parser->cmd = parser->cmd->next;
+			if (tmp->id != 0)
+				printf("cmd id = %d\n", tmp->id);
+			printf("cmd = %s\n", tmp->str);
+			if (tmp->space)
+				printf("space\n");
+			tmp = tmp->next;
 		}
-		while (parser->arg)
+		tmp = parser->arg;
+		while (tmp)
 		{
-			printf("arg = %s\n", parser->arg->str);
-			parser->arg = parser->arg->next;
+			printf("arg = %s\n", tmp->str);
+			if (tmp->space)
+				printf("space\n");
+			tmp = tmp->next;
 		}
 		printf("infile count = %d\n", parser->infile_count);
-		while (parser->infile)
+		tmp = parser->infile;
+		while (tmp)
 		{
-			if (parser->infile->heredoc == true)
+			printf("infile id = %d\n", tmp->id);
+			if (tmp->heredoc == true)
 			{
-				printf("limiter = %s\n", parser->infile->str);
+				printf("limiter = %s\n", tmp->str);
 			}
 			else
-				printf("infile = %s\n", parser->infile->str);
-			parser->infile = parser->infile->next;
+				printf("infile = %s\n", tmp->str);
+			if (tmp->space)
+				printf("space\n");
+			tmp = tmp->next;
 		}
 		printf("outfile count = %d\n", parser->outfile_count);
-		while (parser->outfile)
+		tmp = parser->outfile;
+		while (tmp)
 		{
-			printf("outfile = %s\n", parser->outfile->str);
-			parser->outfile = parser->outfile->next;
+			printf("outfile id = %d\n", tmp->id);
+			printf("outfile = %s\n", tmp->str);
+			if (tmp->space)
+				printf("space\n");
+			tmp = tmp->next;
 		}
 		if (parser->pipein)
 			printf("pipein true\n");

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:29:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 18:26:41 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 12:18:43 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char	**copy_tab(char **old)
 
 int	is_a_builtin(char *cmd)
 {
+	if (!cmd)
+		return (0);
 	if (!ft_strncmp(cmd, "echo", 5))
 		return (1);
 	else if (!ft_strncmp(cmd, "cd", 3))
@@ -116,27 +118,29 @@ void	print_exp(t_data *data)
 	t_exp	*tmp;
 	
 	tmp = data->expander;
+	printf("\nEXPANDER\n\n");
 	while (tmp)
 	{
 		printf("id = %d\n", tmp->id);
-		printf("cmd = %s\n", tmp->cmd);
+		if (tmp->cmd)
+			printf("cmd = %s\n", tmp->cmd);
 		printf("builtin = %d\n", tmp->builtin);
 		if (tmp->arg)
 			printf("arg = %s\n", tmp->arg);
-		/*if (tmp->infile)
+		if (tmp->infile)
 		{
 			if (tmp->heredoc == false)
 				printf("infile = %s\n", tmp->infile);	
 			else
 				printf("limiter = %s\n", tmp->infile);
-		}*/
-		/*if (tmp->outfile)
+		}
+		if (tmp->outfile)
 		{
 			if (tmp->append == false)
 				printf("outfile = %s\n", tmp->outfile);
 			else
 				printf("outfile = %s\n", tmp->outfile);
-		}*/
+		}
 		if (tmp->pipein)
 			printf("pipein true\n");
 		if (tmp->pipeout)

@@ -6,16 +6,15 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:39:13 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 15:12:08 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 16:54:47 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	data_noquote(t_lex *lexer, char *prompt, char *limiter)
+int	data_noquote(t_lex *lexer, char *prompt, char *limiter, bool space)
 {
-	//printf("no quote\n");
-	//printf("prompt = %s\n", prompt);
+	printf("prompt = %s\n", prompt);
 	t_lstr	*data;
 	char	*tmp;
 	int		i;
@@ -23,20 +22,18 @@ int	data_noquote(t_lex *lexer, char *prompt, char *limiter)
 	i = 0;
 	while (prompt[i] && (!ft_strchr(limiter, prompt[i])))
 		i++;
-	//printf("i = %d\n", i);
 	tmp = ft_calloc(sizeof(char), (i + 1));
 	ft_strncpy(tmp, prompt, i);
-	data = new_lstr(tmp, NO_QUOTE);
+	data = new_lstr();
+	data->str = ft_strdup(tmp);
+	data->space = space;
 	lstradd_back(&lexer->data, data);
-	//printf("tmp = %s\n", tmp);
 	free(tmp);
 	return (i);
 }
 
-int	data_quote(t_lex *lexer, char *prompt, char *limiter)
+int	data_quote(t_lex *lexer, char *prompt, char *limiter, bool space)
 {
-	//printf("quote\n");
-	//printf("prompt = %s\n", prompt);
 	t_lstr	*data;
 	char	*tmp;
 	int		i;
@@ -44,11 +41,11 @@ int	data_quote(t_lex *lexer, char *prompt, char *limiter)
 	i = 1;
 	while (prompt[i] && !ft_strchr(limiter, prompt[i]))
 		i++;
-	//printf("i = %d\n", i);
 	tmp = ft_substr(prompt, 1, i - 1);
-	data = new_lstr(tmp, QUOTE);
+	data = new_lstr();
+	data->str = ft_strdup(tmp);
+	data->space = space;
 	lstradd_back(&lexer->data, data);
-	//printf("tmp = %s\n", tmp);
 	free(tmp);
 	return (i + 1);
 }

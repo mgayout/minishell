@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 17:43:39 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 16:51:22 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,9 @@ typedef struct s_env
 typedef struct s_lstr
 {
 	char			*str;
-	t_lex_quote		quote;
 	int				id;
 	bool			heredoc;
-	struct s_lstr	*prev;
+	bool			space;
 	struct s_lstr	*next;
 }					t_lstr;
 
@@ -137,7 +136,7 @@ typedef struct s_exe
 
 typedef struct s_pid
 {
-	struct s_par	*lst;
+	struct s_exp	*lst;
 	char			*arg1;
 	char			**arg2;
 	int				infile;
@@ -183,7 +182,9 @@ void	free_all(t_data *data);
 void	free_env(t_env **env);
 void	free_lex(t_lex **lexer);
 void	free_par(t_par **parser);
+void	free_exp(t_exp **expander);
 void	free_exe(t_exe **exec);
 void	free_tab(char **tabs);
+void	free_lstr(t_lstr *lst);
 
 #endif

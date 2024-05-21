@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 17:21:41 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 12:50:56 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_all(t_data *data)
 		free_lex(&data->lexer);
 	if (data->parser)
 		free_par(&data->parser);
+	if (data->expander)
+		free_exp(&data->expander);
 	if (data->exec)
 		free_exe(&data->exec);
 }
@@ -46,7 +48,8 @@ void	free_lex(t_lex **lexer)
 	{
 		tmp = *lexer;
 		*lexer = (*lexer)->next;
-		free(tmp->data);
+		if (tmp->data)
+			free(tmp->data);
 		free(tmp);
 	}
 }
@@ -59,6 +62,18 @@ void	free_par(t_par **parser)
 	{
 		tmp = *parser;
 		*parser = (*parser)->next;
+		free(tmp);
+	}
+}
+
+void	free_exp(t_exp **expander)
+{
+	t_exp	*tmp;
+
+	while (*expander != NULL)
+	{
+		tmp = *expander;
+		*expander = (*expander)->next;
 		free(tmp->cmd);
 		free(tmp->arg);
 		if (tmp->infile)
@@ -94,4 +109,17 @@ void	free_tab(char **tabs)
 		i++;
 	}
 	free(tabs);
+}
+
+void	free_lstr(t_lstr *lst)
+{
+	t_lstr	*tmp;
+
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		free(tmp->str);
+		free(tmp);
+	}
 }

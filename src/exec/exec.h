@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:54:23 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/16 12:38:11 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 12:42:58 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exec_pipeline(t_data *data);
 
 //EXEC_INIT
 
-t_exe	*init_exe(t_par *parser);
+t_exe	*init_exe(t_exp *expander);
 t_pid	init_child(t_data *data);
 
 //EXEC_FILE_CMD

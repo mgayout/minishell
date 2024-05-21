@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:26:30 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 17:23:38 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/21 09:20:13 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	outfile_parser(t_par *parser, t_lex *lexer)
 	else if (lexer->prev->redir == APPEND)
 		parser->append = true;
 	parser->outfile_count += 1;
-	lexer->data->id = parser->infile_count;
+	lexer->data->id = parser->outfile_count;
 	lstradd_back(&parser->outfile, lexer->data);
 }
 
