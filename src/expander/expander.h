@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:24:03 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 17:39:35 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 14:29:52 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*open_outfiles(t_data *data, t_lstr *outfile, int count);
 char	*modify_expander(t_data *data, char *str);
 char	*modify_str(char *new, char *str, int i);
 char	*search_var(t_data *data, char *str, int i);
+char	*strjoinjoin(char *begin, char *new, char *end);
 
 //EXPANDER_UTILS
 

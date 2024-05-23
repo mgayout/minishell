@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:55:09 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 17:05:42 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 12:25:57 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,20 @@ void	print_par(t_data *data)
 			if (tmp->id != 0)
 				printf("cmd id = %d\n", tmp->id);
 			printf("cmd = %s\n", tmp->str);
-			if (tmp->space)
-				printf("space\n");
+			if (tmp->quote == SQUOTE)
+				printf("SQUOTE\n");
+			else if (tmp->quote == DQUOTE)
+				printf("DQUOTE\n");
 			tmp = tmp->next;
 		}
 		tmp = parser->arg;
 		while (tmp)
 		{
 			printf("arg = %s\n", tmp->str);
-			if (tmp->space)
-				printf("space\n");
+			if (tmp->quote == SQUOTE)
+				printf("SQUOTE\n");
+			else if (tmp->quote == DQUOTE)
+				printf("DQUOTE\n");
 			tmp = tmp->next;
 		}
 		printf("infile count = %d\n", parser->infile_count);
@@ -108,8 +112,10 @@ void	print_par(t_data *data)
 			}
 			else
 				printf("infile = %s\n", tmp->str);
-			if (tmp->space)
-				printf("space\n");
+			if (tmp->quote == SQUOTE)
+				printf("SQUOTE\n");
+			else if (tmp->quote == DQUOTE)
+				printf("DQUOTE\n");
 			tmp = tmp->next;
 		}
 		printf("outfile count = %d\n", parser->outfile_count);
@@ -118,13 +124,15 @@ void	print_par(t_data *data)
 		{
 			printf("outfile id = %d\n", tmp->id);
 			printf("outfile = %s\n", tmp->str);
-			if (tmp->space)
-				printf("space\n");
+			if (tmp->quote == SQUOTE)
+				printf("SQUOTE\n");
+			else if (tmp->quote == DQUOTE)
+				printf("DQUOTE\n");
 			tmp = tmp->next;
 		}
-		if (parser->pipein)
+		if (parser->pipein == true)
 			printf("pipein true\n");
-		if (parser->pipeout)
+		if (parser->pipeout == true)
 			printf("pipeout true\n");
 		printf("\n");
 		parser = parser->next;

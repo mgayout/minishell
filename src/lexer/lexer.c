@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:10:19 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 16:53:03 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:26:30 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@ void	lexer(t_data *data)
 	bool	space;
 
 	i = 0;
-	data->lexer = NULL;
-	space = false;
 	while (data->prompt[i])
 	{
 		while ((data->prompt[i] >= 9 && data->prompt[i] <= 13) || data->prompt[i] == ' ')
-		{
-			space = true;
 			i++;
-		}
+		if (i >= 1 && data->prompt[i - 1] == ' ')
+			space = true;	
+		else
+			space = false;
 		i = add_new_t_lex(data, &data->lexer, &data->prompt[i], space);
 	}
 }

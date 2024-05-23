@@ -6,60 +6,73 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:39:13 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 16:54:47 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:38:24 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	data_noquote(t_lex *lexer, char *prompt, char *limiter, bool space)
+int	data_noquote(t_lex *lexer, char *prompt, bool space)
 {
-	printf("prompt = %s\n", prompt);
 	t_lstr	*data;
 	char	*tmp;
 	int		i;
 
 	i = 0;
-	while (prompt[i] && (!ft_strchr(limiter, prompt[i])))
+	while (prompt[i] && !ft_strchr("\"'><| \t\r\v\f", prompt[i]))
 		i++;
 	tmp = ft_calloc(sizeof(char), (i + 1));
 	ft_strncpy(tmp, prompt, i);
 	data = new_lstr();
 	data->str = ft_strdup(tmp);
 	data->space = space;
+	data->quote = NO_QUOTE;
+	data->final_quote = NOTHING;
 	lstradd_back(&lexer->data, data);
 	free(tmp);
 	return (i);
 }
 
-int	data_quote(t_lex *lexer, char *prompt, char *limiter, bool space)
+int	data_squote(t_lex *lexer, char *prompt, bool space, t_errors final_quote)
 {
 	t_lstr	*data;
 	char	*tmp;
 	int		i;
 
 	i = 1;
-	while (prompt[i] && !ft_strchr(limiter, prompt[i]))
+	while (prompt[i] && !ft_strchr("'", prompt[i]))
 		i++;
 	tmp = ft_substr(prompt, 1, i - 1);
 	data = new_lstr();
 	data->str = ft_strdup(tmp);
 	data->space = space;
+	data->quote = SQUOTE;
+	data->final_quote = final_quote;
 	lstradd_back(&lexer->data, data);
 	free(tmp);
+	if (i == (int)ft_strlen(prompt))
+		return (i);
 	return (i + 1);
 }
 
-char	*add_final_quote(char *prompt)
+int	data_dquote(t_lex *lexer, char *prompt, bool space, t_errors final_quote)
 {
-	char	*new_prompt;
-	char	*buf;
+	t_lstr	*data;
+	char	*tmp;
+	int		i;
 
-	write(1, "> ", 2);
-	buf = get_next_line(0);
-	buf = ft_strtrim(buf, "\n");
-	prompt = ft_strjoin(prompt, "\n");
-	new_prompt = ft_strjoin(prompt, buf);
-	free(buf);
-	return (new_prompt);
+	i = 1;
+	while (prompt[i] && !ft_strchr("\"", prompt[i]))
+		i++;
+	tmp = ft_substr(prompt, 1, i - 1);
+	data = new_lstr();
+	data->str = ft_strdup(tmp);
+	data->space = space;
+	data->quote = DQUOTE;
+	data->final_quote = final_quote;
+	lstradd_back(&lexer->data, data);
+	free(tmp);
+	if (i == (int)ft_strlen(prompt))
+		return (i);
+	return (i + 1);
 }

@@ -6,34 +6,34 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:59:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 09:14:40 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:42:09 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	count_quotes(char *prompt)
+t_errors	count_quotes(char *prompt)
 {
 	int	i;
-	int status;
+	t_errors status;
 
 	i = 0;
-	status = 0;
+	status = NOTHING;
 	while (prompt[i])
 	{
-		if (prompt[i] == '\'' && status != 2)
+		if (prompt[i] == '\'' && status != NO_EOF_DQ)
 		{
-			if (status == 0)
-				status = 1;
+			if (status == NOTHING)
+				status = NO_EOF_SQ;
 			else
-				status = 0;
+				status = NOTHING;
 		}
-		else if (prompt[i] == '\"' && status != 1)
+		else if (prompt[i] == '\"' && status != NO_EOF_SQ)
 		{
-			if (status == 0)
-				status = 2;
+			if (status == NOTHING)
+				status = NO_EOF_DQ;
 			else
-				status = 0;
+				status = NOTHING;
 		}
 		i++;
 	}

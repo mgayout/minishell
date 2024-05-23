@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:51:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/15 08:59:19 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:03:49 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int		export_builtin(t_data *data, t_pid child);
 int		unset_builtin(t_data *data, t_pid child);
 
 //ENV
-int		env_builtin(t_data *data, t_pid child);
+
+void	env_builtin(t_data *data, t_pid child);
+void	env_error(t_data *data, char *arg);
 
 //EXIT
 

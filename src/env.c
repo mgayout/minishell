@@ -6,23 +6,25 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:08:47 by mgayout           #+#    #+#             */
-/*   Updated: 2024/04/24 14:14:44 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:24:01 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	env(t_data *data)
+t_env	*init_env(t_data *data)
 {
+	t_env	*env;
 	int	i;
 
 	i = 0;
-	data->env = NULL;
+	env = NULL;
 	while(data->envp[i] != NULL)
 	{
-		fill_env(&data->env, data->envp[i]);
+		fill_env(&env, data->envp[i]);
 		i++;
 	}
+	return (env);
 }
 
 void	fill_env(t_env **env, char *envp)

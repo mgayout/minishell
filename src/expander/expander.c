@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:24:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 17:36:34 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:27:00 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	expander(t_data *data)
 	t_exp	*tmp;
 	t_par	*parser;
 
-	data->expander = NULL;
 	parser = data->parser;
 	while (parser != NULL)
 	{
@@ -34,17 +33,11 @@ t_exp	*init_expander(t_data *data, t_par *parser)
 
 	expander = malloc(sizeof(t_exp));
 	expander->id = parser->id;
-	//printf("id %d\n", expander->id);
 	expander->cmd = dollar_exp(data, parser->cmd);
-	//printf("cmd %s\n", expander->cmd);
 	expander->builtin = is_a_builtin(expander->cmd);
-	//printf("builtin %d\n", expander->builtin);
 	expander->arg = dollar_exp(data, parser->arg);
-	//printf("arg %s\n", expander->arg);
 	expander->infile = check_infiles(data, parser->infile, parser->infile_count);
-	//printf("infile %s\n", expander->infile);
 	expander->outfile = open_outfiles(data, parser->outfile, parser->outfile_count);
-	//printf("outfile %s\n", expander->outfile);
 	expander->pipein = parser->pipein;
 	expander->pipeout = parser->pipeout;
 	expander->append = parser->append;
@@ -62,7 +55,7 @@ char	*dollar_exp(t_data *data, t_lstr *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		if (ft_strchr(tmp->str, '$'))
+		if (ft_strchr(tmp->str, '$') && tmp->quote != SQUOTE)
 			tmp->str = modify_expander(data, tmp->str);
 		tmp = tmp->next;
 	}

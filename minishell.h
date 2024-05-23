@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 16:51:22 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:57:56 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@
 
 typedef enum e_errors
 {
-	BEGIN_PIPE = 1,
+	NOTHING = 1,
+	BEGIN_PIPE,
 	END_PIPE,
+	END_MULTITOKEN,
 	END_TOKEN,
+	IS_A_DIR,
 	NO_EOF_DQ,
-	NO_EOF_Q,
+	NO_EOF_SQ,
 }	t_errors;
 
 typedef enum e_lex_type
@@ -60,7 +63,8 @@ typedef enum e_lex_redir
 typedef enum e_lex_quote
 {
 	NO_QUOTE = 1,
-	QUOTE,
+	SQUOTE,
+	DQUOTE,
 }	t_lex_quote;
 
 typedef struct s_env
@@ -77,7 +81,10 @@ typedef struct s_lstr
 	int				id;
 	bool			heredoc;
 	bool			space;
+	t_lex_quote		quote;
+	t_errors		final_quote;
 	struct s_lstr	*next;
+	struct s_lstr	*prev;
 }					t_lstr;
 
 typedef struct s_lex
@@ -159,11 +166,12 @@ typedef struct s_data
 //MAIN
 
 int		is_a_prompt(char *str);
+void	init_data(t_data *data);
 void	minishell_loop(t_data *data);
 
 //ENV
 
-void	env(t_data *data);
+t_env	*init_env(t_data *data);
 void	fill_env(t_env **env, char *envp);
 void	print_env(t_env *env);
 t_env	*envlast(t_env *lst);
@@ -172,9 +180,10 @@ void	envadd_back(t_env **lst, t_env *new);
 
 //CHECK_ERRORS
 
-int		check_lexer(t_lex *lexer);
-int		check_parser(t_par *parser);
-void	print_errors(t_errors n);
+int		check_lexer(t_data *data, t_lex *lexer);
+int		print_errors(t_data *data, t_errors n);
+int		is_a_directory(t_lex *lexer);
+int		no_final_quote(t_lex *lexer, t_errors n);
 
 //FREE
 

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:26:41 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 16:53:47 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:40:21 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	token_type(t_lex *lexer, char *prompt)
 
 int	string_type(t_data *data, t_lex *lexer, bool space)
 {
-	int	i;
+	t_errors	final_quote;
+	int			i;
 
 	i = 0;
 	lexer->type = STRING;
@@ -40,15 +41,15 @@ int	string_type(t_data *data, t_lex *lexer, bool space)
 	{
 		if (data->prompt[i] == '\'' || data->prompt[i] == '"')
 		{
-			while (count_quotes(data->prompt))
-				data->prompt = add_final_quote(data->prompt);	
+			final_quote = count_quotes(data->prompt);
 			if (data->prompt[i] == '\'')
-				i += data_quote(lexer, data->prompt + i, "'", space);
+				i += data_squote(lexer, data->prompt + i, space, final_quote);
 			else if (data->prompt[i] == '"')
-				i += data_quote(lexer, data->prompt + i, "\"", space);
+				i += data_dquote(lexer, data->prompt + i, space, final_quote);
 		}
 		else
-			i += data_noquote(lexer, data->prompt + i, "\"'><| \t\r\v\f", space);
+			i += data_noquote(lexer, data->prompt + i, space);
+		space = false;
 	}
 	return (i);
 }

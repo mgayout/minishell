@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 12:50:56 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:38:17 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_all(t_data *data)
 		free_par(&data->parser);
 	if (data->expander)
 		free_exp(&data->expander);
-	if (data->exec)
+	if (data->exec != NULL)
 		free_exe(&data->exec);
 }
 
