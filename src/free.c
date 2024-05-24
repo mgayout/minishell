@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 15:38:17 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:07:10 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,23 @@ void	free_lex(t_lex **lexer)
 	while (*lexer != NULL)
 	{
 		tmp = *lexer;
+		if ((*lexer)->data)
+			free_lstr(&(*lexer)->data);
 		*lexer = (*lexer)->next;
-		if (tmp->data)
-			free(tmp->data);
+		free(tmp);
+	}
+}
+
+void	free_lstr(t_lstr **lstr)
+{
+	t_lstr	*tmp;
+
+	while (*lstr != NULL)
+	{
+		tmp = *lstr;
+		//printf("str = %s\n", tmp->str);
+		*lstr = (*lstr)->next;
+		free(tmp->str);
 		free(tmp);
 	}
 }
@@ -109,17 +123,4 @@ void	free_tab(char **tabs)
 		i++;
 	}
 	free(tabs);
-}
-
-void	free_lstr(t_lstr *lst)
-{
-	t_lstr	*tmp;
-
-	while (lst)
-	{
-		tmp = lst;
-		lst = lst->next;
-		free(tmp->str);
-		free(tmp);
-	}
 }

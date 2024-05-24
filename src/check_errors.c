@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:34:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 17:16:12 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 11:56:45 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	is_a_directory(t_lex *lexer)
 	count = 0;
 	i = 0;
 	if (lexer->type != STRING)
+		return (0);
+	if (!lexer->data->str)
 		return (0);
 	while (lexer->data->str[i])
 	{

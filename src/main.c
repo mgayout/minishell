@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:28:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 17:38:33 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:17:16 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ void	minishell_loop(t_data *data)
 		if (check_lexer(data, data->lexer))
 		{
 			parser(data);
-			//print_par(data);
+			print_par(data);
 			expander(data);
-			//print_exp(data);
-			exec(data);
+			print_exp(data);
+			//exec(data);
 		}
+		free (data->last_prompt);
 		data->last_prompt = ft_strdup(data->prompt);
 		free_all(data);	
 	}
@@ -64,7 +65,6 @@ void	init_data(t_data *data)
 	data->parser = NULL;
 	data->expander = NULL;
 	data->exec = NULL;
-	data->prompt = NULL;
 }
 
 int	main(int argc, char **argv, char *envp[])

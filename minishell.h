@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 16:57:56 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 13:46:28 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,10 +190,10 @@ int		no_final_quote(t_lex *lexer, t_errors n);
 void	free_all(t_data *data);
 void	free_env(t_env **env);
 void	free_lex(t_lex **lexer);
+void	free_lstr(t_lstr **lstr);
 void	free_par(t_par **parser);
 void	free_exp(t_exp **expander);
 void	free_exe(t_exe **exec);
 void	free_tab(char **tabs);
-void	free_lstr(t_lstr *lst);
 
 #endif

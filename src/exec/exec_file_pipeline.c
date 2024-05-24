@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:13:00 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/16 12:54:58 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 13:03:49 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	open_file_pipeline(t_data *data, t_pid child)
 {
-	if (!data->exec->pid[data->exec->status])
+	if (child.lst->builtin || !data->exec->pid[data->exec->status])
 	{
 		infile_pipeline(data, child);
 		outfile_pipeline(data, child);
