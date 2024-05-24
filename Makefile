@@ -6,7 +6,7 @@
 #    By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 09:16:25 by mgayout           #+#    #+#              #
-#    Updated: 2024/05/21 12:40:42 by mgayout          ###   ########.fr        #
+#    Updated: 2024/05/24 16:52:55 by mgayout          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC =	main \
 		env \
 		check_errors \
 		free \
+		free2 \
 
 SRC_LEX	=	lexer \
 			lexer_type \
@@ -41,6 +42,7 @@ SRC_PAR =	parser \
 			parser_function \
 
 SRC_EXP =	expander \
+			expander_init \
 			expander_env \
 			expander_utils \
 			expander_function \

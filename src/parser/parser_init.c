@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:26:30 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 09:20:13 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:55:17 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,15 @@ void	outfile_parser(t_par *parser, t_lex *lexer)
 void	cmd_arg_parser(t_par *parser, t_lex *lexer)
 {
 	if (parser->status == 1)
-		lstradd_back(&parser->arg, lexer->data);
-	else if (parser->status == 2)
-		if (lexer->prev->prev->type == REDIR)
-		{
-			lstradd_back(&parser->cmd, lexer->data);
-			parser->status = 1;
-		}
+	{
+		if (!parser->arg)
+			parser->arg = lexer->data;
+		else
+			lstrlast(parser->arg)->next = lexer->data;
+	}
+	else if (parser->status == 2 && lexer->prev->prev->type == REDIR)
+	{
+		parser->cmd = lexer->data;
+		parser->status = 1;
+	}
 }

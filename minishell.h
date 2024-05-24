@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 13:46:28 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:39:57 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <dirent.h>
 # include <string.h>
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
-
+ 
 typedef enum e_errors
 {
 	NOTHING = 1,
@@ -182,7 +183,7 @@ void	envadd_back(t_env **lst, t_env *new);
 
 int		check_lexer(t_data *data, t_lex *lexer);
 int		print_errors(t_data *data, t_errors n);
-int		is_a_directory(t_lex *lexer);
+int		print_errors2(t_data *data, t_errors n);
 int		no_final_quote(t_lex *lexer, t_errors n);
 
 //FREE
@@ -192,6 +193,9 @@ void	free_env(t_env **env);
 void	free_lex(t_lex **lexer);
 void	free_lstr(t_lstr **lstr);
 void	free_par(t_par **parser);
+
+//FREE2
+
 void	free_exp(t_exp **expander);
 void	free_exe(t_exe **exec);
 void	free_tab(char **tabs);

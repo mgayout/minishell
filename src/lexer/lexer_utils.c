@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:59:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 17:42:09 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:35:11 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 t_errors	count_quotes(char *prompt)
 {
-	int	i;
-	t_errors status;
+	t_errors	status;
+	int			i;
 
-	i = 0;
 	status = NOTHING;
+	i = 0;
 	while (prompt[i])
 	{
 		if (prompt[i] == '\'' && status != NO_EOF_DQ)
@@ -40,7 +40,7 @@ t_errors	count_quotes(char *prompt)
 	return (status);
 }
 
-void	print_lex(t_data *data)
+/*void	print_lex(t_data *data)
 {
 	t_lex	*tmp;
 	t_lstr	*tmp2;
@@ -65,4 +65,4 @@ void	print_lex(t_data *data)
 		tmp = tmp->next;
 		i++;
 	}
-}
+}*/

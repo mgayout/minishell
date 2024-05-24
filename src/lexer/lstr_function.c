@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:56:07 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 13:19:40 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:35:54 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,10 @@ void	lstradd_back(t_lstr **lst, t_lstr *new)
 char	*lstrjoin(t_lstr *lst)
 {
 	char	*str;
-	
+
 	str = NULL;
 	while (lst)
 	{
-		/*printf("id = %d\n", lst->id);
-		printf("str = %s\n", lst->str);
-		if (lst->space)
-			printf("space\n");
-		else
-			printf("no space\n");*/
 		if (lst->str)
 		{
 			if (!str)
@@ -100,7 +94,7 @@ char	*lstrjoin(t_lstr *lst)
 				if (lst->space)
 					str = ft_strjoin(ft_strjoin(str, " "), lst->str);
 				else
-					str = ft_strjoin(str, lst->str);					
+					str = ft_strjoin(str, lst->str);
 			}
 		}
 		lst = lst->next;

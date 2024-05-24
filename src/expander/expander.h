@@ -6,24 +6,27 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:24:03 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 14:29:52 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:59:02 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
-
 #ifndef EXPANDER_H
 # define EXPANDER_H
+
+# include "../../minishell.h"
 
 //EXPANDER
 
 void	expander(t_data *data);
 t_exp	*init_expander(t_data *data, t_par *parser);
+
+//EXPANDER_INIT
+
 char	*dollar_exp(t_data *data, t_lstr *lst);
 char	*check_infiles(t_data *data, t_lstr *infile, int count);
 char	*joinfile(t_data *data, t_lstr *lst, int count);
 void	wrong_heredoc(char *stop);
-char	*open_outfiles(t_data *data, t_lstr *outfile, int count);
+char	*check_outfiles(t_data *data, t_lstr *outfile, int count);
 
 //EXPANDER_ENV
 
@@ -34,8 +37,6 @@ char	*strjoinjoin(char *begin, char *new, char *end);
 
 //EXPANDER_UTILS
 
-char	*search_begin(char *str, int i);
-char	*search_end(char *str, int i);
 int		count_dollar(char *str);
 char	**copy_tab(char **old);
 int		is_a_builtin(char *cmd);

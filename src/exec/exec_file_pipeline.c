@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:13:00 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 13:03:49 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:52:07 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ void	open_file_pipeline(t_data *data, t_pid child)
 		infile_pipeline(data, child);
 		outfile_pipeline(data, child);
 	}
-	else
-		if (child.lst->pipeout)
-		{
-			dup2(data->exec->pipefd[0], STDIN_FILENO);
-			close(data->exec->pipefd[1]);
-		}
+	else if (child.lst->pipeout)
+	{
+		dup2(data->exec->pipefd[0], STDIN_FILENO);
+		close(data->exec->pipefd[1]);
+	}
 }
 
 void	infile_pipeline(t_data *data, t_pid child)
@@ -50,12 +49,14 @@ void	outfile_pipeline(t_data *data, t_pid child)
 {
 	if (child.lst->outfile && !child.lst->append)
 	{
-		child.outfile = open(child.lst->outfile, O_RDWR | O_TRUNC | O_CREAT, 0640);
+		child.outfile = open(child.lst->outfile,
+				O_RDWR | O_TRUNC | O_CREAT, 0640);
 		dup2(child.outfile, STDOUT_FILENO);
 	}
 	else if (child.lst->outfile && child.lst->append)
 	{
-		child.outfile = open(child.lst->outfile, O_WRONLY | O_CREAT | O_APPEND, 0640);
+		child.outfile = open(child.lst->outfile,
+				O_WRONLY | O_CREAT | O_APPEND, 0640);
 		dup2(child.outfile, STDOUT_FILENO);
 	}
 	else if (child.lst->pipeout)

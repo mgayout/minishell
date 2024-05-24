@@ -6,42 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:29:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 14:41:12 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:40:52 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-
-char	*search_begin(char *str, int i)
-{
-	char	*begin;
-	int		j;
-
-	if (i == 0)
-		return (NULL);
-	begin = malloc(sizeof(char) * (i + 1));
-	j = 0;
-	while (i != j)
-	{
-		begin[j] = str[j];
-		j++;
-	}
-	begin[j] = '\0';
-	return (begin);
-}
-
-char	*search_end(char *str, int i)
-{
-	char	*end;
-	int		j;
-
-	j = i;
-	while (str[j])
-		j++;
-	end = malloc(sizeof(char) * ((j - i) + 1));
-	end = ft_strncpy(end, str + i, (j - i) + 1);
-	return (end);
-}
 
 int	count_dollar(char *str)
 {
@@ -115,7 +84,7 @@ int	is_a_builtin(char *cmd)
 	return (0);
 }
 
-void	print_exp(t_data *data)
+/*void	print_exp(t_data *data)
 {
 	t_exp	*tmp;
 	
@@ -150,4 +119,4 @@ void	print_exp(t_data *data)
 		printf("\n");
 		tmp = tmp->next;
 	}
-}
+}*/

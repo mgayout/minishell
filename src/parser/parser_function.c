@@ -6,13 +6,13 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:26:15 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 17:12:03 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:37:25 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_par	*new_par()
+t_par	*new_par(void)
 {
 	t_par	*new;
 

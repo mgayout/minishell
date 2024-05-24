@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 14:07:10 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:19:50 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_all(t_data *data)
 {
-	//free_env(&data->env);
 	free(data->prompt);
 	if (data->lexer)
 		free_lex(&data->lexer);
@@ -29,7 +28,7 @@ void	free_all(t_data *data)
 void	free_env(t_env **env)
 {
 	t_env	*tmp;
-	
+
 	while (*env != NULL)
 	{
 		tmp = *env;
@@ -43,12 +42,10 @@ void	free_env(t_env **env)
 void	free_lex(t_lex **lexer)
 {
 	t_lex	*tmp;
-	
+
 	while (*lexer != NULL)
 	{
 		tmp = *lexer;
-		if ((*lexer)->data)
-			free_lstr(&(*lexer)->data);
 		*lexer = (*lexer)->next;
 		free(tmp);
 	}
@@ -61,7 +58,6 @@ void	free_lstr(t_lstr **lstr)
 	while (*lstr != NULL)
 	{
 		tmp = *lstr;
-		//printf("str = %s\n", tmp->str);
 		*lstr = (*lstr)->next;
 		free(tmp->str);
 		free(tmp);
@@ -75,52 +71,15 @@ void	free_par(t_par **parser)
 	while (*parser != NULL)
 	{
 		tmp = *parser;
+		if ((*parser)->cmd)
+			free_lstr(&(*parser)->cmd);
+		if ((*parser)->arg)
+			free_lstr(&(*parser)->arg);
+		if ((*parser)->infile)
+			free_lstr(&(*parser)->infile);
+		if ((*parser)->outfile)
+			free_lstr(&(*parser)->outfile);
 		*parser = (*parser)->next;
 		free(tmp);
 	}
-}
-
-void	free_exp(t_exp **expander)
-{
-	t_exp	*tmp;
-
-	while (*expander != NULL)
-	{
-		tmp = *expander;
-		*expander = (*expander)->next;
-		free(tmp->cmd);
-		free(tmp->arg);
-		if (tmp->infile)
-			free(tmp->infile);
-		if (tmp->outfile)
-			free(tmp->outfile);
-		free(tmp);
-	}
-}
-
-void	free_exe(t_exe **exec)
-{
-	t_exe	*tmp;
-
-	tmp = *exec;
-	//if (tmp->heredoc)
-		//unlink(".temp");
-	free(tmp->child);
-	free(tmp->pid);
-	free(tmp->pipefd);
-	//free(tmp);
-}
-
-
-void	free_tab(char **tabs)
-{
-	int	i;
-	
-	i = 0;
-	while (tabs[i] != NULL)
-	{
-		free(tabs[i]);
-		i++;
-	}
-	free(tabs);
 }

@@ -6,14 +6,14 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:51:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 15:03:49 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:18:39 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILDINS_H
-# define BUILDINS_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-#include "../../minishell.h"
+# include "../../minishell.h"
 
 //BUILTINS
 
@@ -25,7 +25,8 @@ void	echo_builtin(t_data *data, t_pid child);
 
 //CD
 
-int		cd_builtin(t_data *data, t_pid child);
+void	cd_builtin(t_data *data, t_pid child);
+int		is_a_directory(char *str);
 
 //PWD
 

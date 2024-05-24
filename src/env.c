@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:08:47 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 15:24:01 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:18:30 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 t_env	*init_env(t_data *data)
 {
 	t_env	*env;
-	int	i;
+	int		i;
 
 	i = 0;
 	env = NULL;
-	while(data->envp[i] != NULL)
+	while (data->envp[i] != NULL)
 	{
 		fill_env(&env, data->envp[i]);
 		i++;
@@ -46,7 +46,7 @@ void	fill_env(t_env **env, char *envp)
 	envadd_back(env, new);
 }
 
-void	print_env(t_env *env)
+/*void	print_env(t_env *env)
 {
 	int	i;
 
@@ -61,7 +61,7 @@ void	print_env(t_env *env)
 		}
 		env = env->next;
 	}
-}
+}*/
 
 t_env	*envlast(t_env *lst)
 {

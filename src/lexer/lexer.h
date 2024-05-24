@@ -6,19 +6,20 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:09:22 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 17:42:45 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:34:07 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-#include "../../minishell.h"
+# include "../../minishell.h"
 
 //LEXER
 
 void		lexer(t_data *data);
-int			add_new_t_lex(t_data *data, t_lex **lexer, char *prompt, bool space);
+int			add_new_t_lex(t_data *data,
+				t_lex **lexer, char *prompt, bool space);
 
 //LEX_TYPE
 
@@ -28,8 +29,10 @@ int			string_type(t_data *data, t_lex *lexer, bool space);
 //LEX_QUOTE
 
 int			data_noquote(t_lex *lexer, char *prompt, bool space);
-int			data_squote(t_lex *lexer, char *prompt, bool space, t_errors final_quote);
-int			data_dquote(t_lex *lexer, char *prompt, bool space, t_errors final_quote);
+int			data_squote(t_lex *lexer,
+				char *prompt, bool space, t_errors final_quote);
+int			data_dquote(t_lex *lexer,
+				char *prompt, bool space, t_errors final_quote);
 
 //LEX_UTILS
 

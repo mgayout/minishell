@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:55:09 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 12:25:57 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:36:45 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	parser(t_data *data)
 {
 	t_par	*par_tmp;
 	t_lex	*lex_tmp;
-	
+
 	data->parser = new_par();
 	par_tmp = data->parser;
 	lex_tmp = data->lexer;
@@ -44,10 +44,10 @@ int	init_parser(t_par *parser, t_lex *lexer)
 	else if (lexer->type != PIPE)
 	{
 		if (lexer->type == STRING
-		&& (lexer->prev->redir == INFILE || lexer->prev->redir == HEREDOC))
+			&& (lexer->prev->redir == INFILE || lexer->prev->redir == HEREDOC))
 			infile_parser(parser, lexer);
 		else if (lexer->type == STRING
-		&& (lexer->prev->redir == OUTFILE || lexer->prev->redir == APPEND))
+			&& (lexer->prev->redir == OUTFILE || lexer->prev->redir == APPEND))
 			outfile_parser(parser, lexer);
 		else if (lexer->type == STRING)
 			cmd_arg_parser(parser, lexer);
@@ -69,7 +69,7 @@ int	last_parser(t_par *parser)
 	return (1);
 }
 
-void	print_par(t_data *data)
+/*void	print_par(t_data *data)
 {
 	t_par	*parser;
 	t_lstr	*tmp;
@@ -137,4 +137,4 @@ void	print_par(t_data *data)
 		printf("\n");
 		parser = parser->next;
 	}
-}
+}*/

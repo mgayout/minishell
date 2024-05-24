@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:53:27 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/16 12:47:35 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:48:02 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,21 @@ int	infile_cmd(t_data *data, t_pid child)
 	else if (child.lst->infile && child.lst->heredoc)
 	{
 		infile = init_heredoc(data, child.lst->infile);
-		data->exec->temp = true;	
+		data->exec->temp = true;
 	}
 	else
 		infile = data->exec->std_in;
-	return(infile);
+	return (infile);
 }
 
 int	outfile_cmd(t_data *data, t_pid child)
 {
 	if (child.lst->outfile && !child.lst->append)
-		child.outfile = open(child.lst->outfile, O_RDWR | O_TRUNC | O_CREAT, 0640);
+		child.outfile = open(child.lst->outfile,
+				O_RDWR | O_TRUNC | O_CREAT, 0640);
 	else if (child.lst->outfile && child.lst->append)
-		child.outfile = open(child.lst->outfile, O_WRONLY | O_CREAT | O_APPEND, 0640);
+		child.outfile = open(child.lst->outfile,
+				O_WRONLY | O_CREAT | O_APPEND, 0640);
 	else
 		child.outfile = data->exec->std_out;
 	return (child.outfile);

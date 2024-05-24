@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:34:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 11:56:45 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:17:06 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	check_lexer(t_data *data, t_lex *lexer)
 		return (print_errors(data, END_PIPE));
 	else if (lexlast(lexer)->prev && lexlast(lexer)->prev->type == REDIR
 		&& lexlast(lexer)->type == REDIR)
-		return(print_errors(data, END_MULTITOKEN));
+		return (print_errors(data, END_MULTITOKEN));
 	else if (lexlast(lexer)->type == REDIR)
 		return (print_errors(data, END_TOKEN));
-	else if (is_a_directory(lexer))
-		return(print_errors(data, IS_A_DIR));
+	//else if (is_a_directory(lexer))
+		//return (print_errors(data, IS_A_DIR));
 	else if (no_final_quote(lexer, NO_EOF_SQ))
 		return (print_errors(data, NO_EOF_SQ));
 	else if (no_final_quote(lexer, NO_EOF_DQ))
@@ -36,14 +36,13 @@ int	check_lexer(t_data *data, t_lex *lexer)
 
 int	print_errors(t_data *data, t_errors n)
 {
-	if (n == BEGIN_PIPE)
+	if (n == BEGIN_PIPE || n == END_PIPE)
 	{
 		data->error = 2;
-		printf("bash: syntax error near unexpected token `|'\n");	
-	}
-	else if (n == END_PIPE)
-	{
-		printf("bash: syntax error: unexpected end of file\n");	
+		if (n == BEGIN_PIPE)
+			printf("bash: syntax error near unexpected token `|'\n");
+		else
+			printf("bash: syntax error: unexpected end of file\n");
 	}
 	else if (n == END_TOKEN || n == END_MULTITOKEN)
 	{
@@ -59,7 +58,14 @@ int	print_errors(t_data *data, t_errors n)
 				printf("bash: syntax error near unexpected token '>>'\n");
 		}
 	}
-	else if (n == IS_A_DIR)
+	else
+		return (print_errors2(data, n));
+	return (0);
+}
+
+int	print_errors2(t_data *data, t_errors n)
+{
+	if (n == IS_A_DIR)
 	{
 		data->error = 126;
 		printf("bash: %s: Is a directory\n", data->lexer->data->str);
@@ -67,21 +73,23 @@ int	print_errors(t_data *data, t_errors n)
 	else if (n == NO_EOF_SQ)
 	{
 		data->error = 2;
-		printf("bash: unexpected EOF while looking for matching `\''\nbash: syntax error: unexpected end of file\n");	
+		printf("bash: unexpected EOF while looking for matching `\''\n");
+		printf("bash: syntax error: unexpected end of file\n");
 	}
 	else if (n == NO_EOF_DQ)
 	{
 		data->error = 2;
-		printf("bash: unexpected EOF while looking for matching `\"'\nbash: syntax error: unexpected end of file\n");
+		printf("bash: unexpected EOF while looking for matching `\"'\n");
+		printf("bash: syntax error: unexpected end of file\n");
 	}
 	return (0);
 }
 
-int	is_a_directory(t_lex *lexer)
+/*int	is_a_directory(t_lex *lexer)
 {
 	int	count;
 	int	i;
-	
+
 	count = 0;
 	i = 0;
 	if (lexer->type != STRING)
@@ -101,7 +109,7 @@ int	is_a_directory(t_lex *lexer)
 		i++;
 	}
 	return (1);
-}
+}*/
 
 int	no_final_quote(t_lex *lexer, t_errors n)
 {
@@ -113,12 +121,14 @@ int	no_final_quote(t_lex *lexer, t_errors n)
 	{
 		tmp2 = tmp->data;
 		if (tmp->type == STRING)
-			while(tmp2)
+		{
+			while (tmp2)
 			{
 				if (tmp2->final_quote == n)
 					return (1);
 				tmp2 = tmp2->next;
 			}
+		}
 		tmp = tmp->next;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:55:30 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/17 17:01:06 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:37:01 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cmd_arg_parser(t_par *parser, t_lex *lexer);
 
 //PARSER_FUNCTION
 
-t_par	*new_par();
+t_par	*new_par(void);
 int		parsize(t_par *parser);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:34:44 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 14:40:19 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:43:39 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ char	*modify_expander(t_data *data, char *str)
 		while (str[i] != '$')
 			i++;
 		if (str[i + 1] == '$')
-			str = strjoinjoin(ft_substr(str, 0, i), NULL, ft_substr(str, i + 2, ft_strlen(str) - (i + 2)));
+			str = strjoinjoin(ft_substr(str, 0, i),
+					NULL, ft_substr(str, i + 2, ft_strlen(str) - (i + 2)));
 		else if (str[i + 1] == '?')
-			str = modify_str(ft_itoa(data->error), str, i);	
+			str = modify_str(ft_itoa(data->error), str, i);
 		else if (!ft_strchr(" \n\0\"'", str[i + 1]))
 			str = modify_str(search_var(data, str, i + 1), str, i);
 		else
-			return(str);
+			return (str);
 	}
-	return(str);
+	return (str);
 }
 
 char	*modify_str(char *new, char *str, int i)
@@ -38,7 +39,7 @@ char	*modify_str(char *new, char *str, int i)
 	char	*begin;
 	char	*end;
 	int		j;
-	
+
 	begin = ft_substr(str, 0, i);
 	j = i + 1;
 	while (str[j] && !ft_strchr("'\"\n$ ", str[j]))
@@ -54,7 +55,7 @@ char	*search_var(t_data *data, char *str, int i)
 	char	*var;
 	int		j;
 	int		k;
-	
+
 	j = i;
 	while (str[j] && !ft_strchr("'\"\n$ ", str[j]))
 		j++;
