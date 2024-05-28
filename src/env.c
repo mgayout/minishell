@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:08:47 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:18:30 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/28 17:27:11 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,39 @@ void	fill_env(t_env **env, char *envp)
 	envadd_back(env, new);
 }
 
-/*void	print_env(t_env *env)
+/*t_env	*init_export(t_data *data)
+{
+	t_env	*export;
+
+	export = NULL;
+	while (1)
+	{
+		
+	}
+	return (export);
+}*/
+
+t_env	*fill_export(char	*envp)
+{
+	t_env	*new;
+	int		i;
+
+	new = NULL;
+	i = 0;
+	while (ft_strncmp(&envp[i], "=", 1) != 0)
+		i++;
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (new);
+	new->name = malloc(sizeof(char) * i + 1);
+	ft_strlcpy(new->name, envp, i + 1);
+	new->value = ft_split(&envp[i + 1], ':');
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
+}
+
+void	print_env(t_env *env)
 {
 	int	i;
 
@@ -61,50 +93,4 @@ void	fill_env(t_env **env, char *envp)
 		}
 		env = env->next;
 	}
-}*/
-
-t_env	*envlast(t_env *lst)
-{
-	t_env	*last;
-	int		i;
-	int		j;
-
-	last = lst;
-	if (!last)
-		return (NULL);
-	i = 1;
-	j = envsize(last);
-	while (i != j)
-	{
-		last = last->next;
-		i++;
-	}
-	return (last);
-}
-
-int	envsize(t_env *lst)
-{
-	int	size;
-
-	size = 0;
-	while (lst != NULL)
-	{
-		++size;
-		lst = lst->next;
-	}
-	return (size);
-}
-
-void	envadd_back(t_env **lst, t_env *new)
-{
-	t_env	*last;
-
-	if (*lst != NULL)
-	{
-		last = *lst;
-		last = envlast(*lst);
-		last->next = new;
-		return ;
-	}
-	*lst = new;
 }

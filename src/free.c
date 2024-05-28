@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:19:50 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/28 12:52:03 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_all(t_data *data)
 {
+	data->last_prompt = ft_strdup(data->prompt);
 	free(data->prompt);
 	if (data->lexer)
 		free_lex(&data->lexer);

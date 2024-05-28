@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:48:17 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 15:04:38 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/28 12:07:35 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,8 @@ void	env_builtin(t_data *data, t_pid child)
 void	env_error(t_data *data, char *arg)
 {
 	data->error = 1;
-	if (arg[0] == '-')
-	{
-		if (&arg[1])
-			printf("env: invalid option -- '%s'\n", &arg[1]);
-		else
-			printf("env: invalid option\n");
-	}
+	if (arg[0] == '-' && &arg[1])
+		printf("env: invalid option -- '%s'\n", &arg[1]);
 	else
 		printf("env: '%s': No such file or directory\n", arg);
 }

@@ -6,7 +6,7 @@
 #    By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 09:16:25 by mgayout           #+#    #+#              #
-#    Updated: 2024/05/24 16:52:55 by mgayout          ###   ########.fr        #
+#    Updated: 2024/05/28 14:46:21 by mgayout          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ LIBFT = libft+/libft.a
 
 SRC =	main \
 		env \
+		env_function \
 		check_errors \
 		free \
 		free2 \
