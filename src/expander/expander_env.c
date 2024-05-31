@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:34:44 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:43:39 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:35:43 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	*search_var(t_data *data, char *str, int i)
 	char	*new;
 	char	*var;
 	int		j;
-	int		k;
 
 	j = i;
 	while (str[j] && !ft_strchr("'\"\n$ ", str[j]))
@@ -63,16 +62,9 @@ char	*search_var(t_data *data, char *str, int i)
 	env = data->env;
 	while (env && ft_strncmp(var, env->name, ft_strlen(env->name) + 1) != 0)
 		env = env->next;
-	k = 0;
 	new = NULL;
-	while (env->value[k])
-	{
-		if (!new)
-			new = ft_strdup(env->value[k]);
-		else
-			new = ft_strjoin(ft_strjoin(new, ":"), env->value[k]);
-		k++;
-	}
+	if (env)
+		new = ft_strdup(env->value);
 	return (new);
 }
 

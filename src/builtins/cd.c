@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:33 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/28 12:42:49 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/29 16:26:09 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	cd_builtin(t_data *data, t_pid child)
 		tmp = tmp->next;
 	}
 	if (getcwd(cwd, sizeof(cwd)))
-		tmp->value[0] = ft_strdup(cwd);
+		tmp->value = ft_strdup(cwd);
 }
 
 int	is_a_directory(t_data *data, char *str)

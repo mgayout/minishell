@@ -6,7 +6,7 @@
 #    By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 09:16:25 by mgayout           #+#    #+#              #
-#    Updated: 2024/05/28 14:46:21 by mgayout          ###   ########.fr        #
+#    Updated: 2024/05/31 12:22:40 by mgayout          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror
 MINIFLAG = -lreadline -g
 SRC_DIR = src/
+SRC_ENV_DIR = src/env/
 SRC_LEX_DIR = src/lexer/
 SRC_PAR_DIR = src/parser/
 SRC_EXP_DIR = src/expander/
@@ -25,11 +26,13 @@ OBJ_DIR = obj/
 LIBFT = libft+/libft.a
 
 SRC =	main \
-		env \
-		env_function \
 		check_errors \
 		free \
 		free2 \
+
+SRC_ENV =	env \
+			export \
+			env_function \
 
 SRC_LEX	=	lexer \
 			lexer_type \
@@ -55,9 +58,11 @@ SRC_EXE =	exec \
 			exec_utils \
 			exec_cmd \
 
-SRC_BUI =	builtins echo cd pwd export unset env exit \
+SRC_BUI =	builtins echo cd pwd export export_utils unset env exit \
 
 SRCS =	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC)))
+
+SRCS_ENV = $(addprefix $(SRC_ENV_DIR), $(addsuffix .c, $(SRC_ENV)))
 
 SRCS_LEX = $(addprefix $(SRC_LEX_DIR), $(addsuffix .c, $(SRC_LEX)))
 
@@ -69,7 +74,7 @@ SRCS_EXE =	$(addprefix $(SRC_EXE_DIR), $(addsuffix .c, $(SRC_EXE)))
 
 SRCS_BUI = $(addprefix $(SRC_BUI_DIR), $(addsuffix .c, $(SRC_BUI)))
 
-SRCSS =	$(SRCS) $(SRCS_LEX) $(SRCS_PAR) $(SRCS_EXP) $(SRCS_EXE) $(SRCS_BUI)
+SRCSS =	$(SRCS) $(SRCS_ENV) $(SRCS_LEX) $(SRCS_PAR) $(SRCS_EXP) $(SRCS_EXE) $(SRCS_BUI)
 
 #OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC)))
 

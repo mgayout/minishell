@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:09:22 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:34:07 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:58:40 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 //LEXER
 
-void		lexer(t_data *data);
+int			lexer(t_data *data);
 int			add_new_t_lex(t_data *data,
 				t_lex **lexer, char *prompt, bool space);
 
@@ -37,7 +37,6 @@ int			data_dquote(t_lex *lexer,
 //LEX_UTILS
 
 t_errors	count_quotes(char *prompt);
-void		print_lex(t_data *data);
 
 //LEX_FUNCTION
 

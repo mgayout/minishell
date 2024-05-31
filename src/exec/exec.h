@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:54:23 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 12:42:58 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:51:59 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		init_heredoc(t_data *data, char *stop);
 //EXEC_CMD
 
 void	children(t_data *data, t_pid child);
-char	*create_arg1(char *str);
+char	*create_arg1(t_env *path, char *str);
 char	**create_arg2(t_pid child);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:59 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/28 12:06:34 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/29 16:28:14 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	pwd_builtin(t_data *data, t_pid child)
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, "PWD", ft_strlen("PWD")))
-			printf("%s\n", tmp->value[0]);
+			printf("%s\n", tmp->value);
 		tmp = tmp->next;
 	}
 }

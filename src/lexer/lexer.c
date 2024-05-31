@@ -6,16 +6,15 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:10:19 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:30:27 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/31 18:05:43 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	lexer(t_data *data)
+int	lexer(t_data *data)
 {
 	int		i;
-	bool	space;
 
 	i = 0;
 	while (data->prompt[i])
@@ -24,13 +23,13 @@ void	lexer(t_data *data)
 			|| data->prompt[i] == ' ')
 			i++;
 		if (i >= 1 && data->prompt[i - 1] == ' ')
-			space = true;
+			i = add_new_t_lex(data, &data->lexer, &data->prompt[i], true);
 		else
-			space = false;
-		i = add_new_t_lex(data, &data->lexer, &data->prompt[i], space);
+			i = add_new_t_lex(data, &data->lexer, &data->prompt[i], false);
 		if (i < 0)
-			return ;
+			return (0);
 	}
+	return (1);
 }
 
 int	add_new_t_lex(t_data *data, t_lex **lexer, char *prompt, bool space)

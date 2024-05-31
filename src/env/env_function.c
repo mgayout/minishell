@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:19:58 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/28 15:50:48 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/29 14:56:10 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "env.h"
 
 t_env	*envlast(t_env *lst)
 {
@@ -52,33 +52,9 @@ void	envadd_back(t_env **lst, t_env *new)
 	{
 		last = *lst;
 		last = envlast(*lst);
+		new->prev = last;
 		last->next = new;
 		return ;
 	}
 	*lst = new;
 }
-
-/*void	exportadd(t_env **lst, t_env *new)
-{
-	t_env	*next;
-
-	if (*lst != NULL)
-	{
-		
-	}
-	*lst = new;
-}*/
-
-/*t_env	*next_new_export(t_env **lst, t_env *new)
-{
-	t_env	*tmp;
-
-	tmp = *lst;
-	while (tmp)
-	{
-		if(ft_strncmp(tmp->name, new->name, ft_strlen(tmp->name)) > 0)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}*/

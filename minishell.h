@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/28 16:35:30 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:54:06 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef enum e_lex_quote
 typedef struct s_env
 {
 	char			*name;
-	char			**value;
+	char			*value;
 	struct s_env	*next;
 	struct s_env	*prev;
 }				t_env;
@@ -163,29 +163,15 @@ typedef struct s_data
 	struct s_exp	*expander;
 	struct s_exe	*exec;
 	int				error;
+	bool			exit;
 }					t_data;
 
 //MAIN
 
-int		is_a_prompt(char *str);
-void	init_data(t_data *data);
+void	print_error(t_data *data, char *error_msg, int error_code);
 int		minishell_loop(t_data *data);
-
-//ENV
-
-t_env	*init_env(t_data *data);
-void	fill_env(t_env **env, char *envp);
-t_env	*init_export(t_data *data);
-t_env	*fill_export(char *envp);
-t_env	*first_sorted_export(char **envp);
-t_env	*close_sort_export(t_env *export, char **envp);
-void	print_env(t_env *env);
-
-//ENV_FUNCTION
-
-t_env	*envlast(t_env *lst);
-int		envsize(t_env *lst);
-void	envadd_back(t_env **lst, t_env *new);
+void	init_data(t_data *data);
+int		init_prompt(t_data *data);
 
 //CHECK_ERRORS
 

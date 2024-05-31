@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_strdup_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 12:48:41 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 17:51:06 by mgayout          ###   ########.fr       */
+/*   Created: 2024/05/31 18:01:04 by mgayout           #+#    #+#             */
+/*   Updated: 2024/05/31 18:02:53 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
+#include <stdlib.h>
 
-void	exit_builtin(t_data *data, t_pid child)
+char	*ft_strdup_free(char *source)
 {
-	ft_putstr_fd("exit\n", 2);
-	if (child.lst->arg)
-		print_error(data, ft_strjoin_free(ft_strjoin("bash: exit: ", child.lst->arg), ": numeric argument required\n", 1), 2);
-	data->exit = true;
+	char	*copy;
+	int		i;
+
+	i = 0;
+	copy = malloc((ft_strlen(source) + 1) * sizeof(char));
+	if (!copy)
+		return (NULL);
+	while (source[i])
+	{
+		copy[i] = source[i];
+		i++;
+	}
+	copy[i] = '\0';
+	free(source);
+	return (copy);
 }

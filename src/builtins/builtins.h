@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:51:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/28 14:45:37 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:49:57 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,21 @@ int		pwd_error(t_data *data, char *arg);
 //EXPORT
 
 void	export_builtin(t_data *data, t_pid child);
+void	init_new_export(t_data *data, char *arg);
+void	find_pos_export(t_data *data, t_env *new);
+void	find_pos_env(t_data *data, t_env *new);
+void	add_new_export(t_env *pos, t_env *new);
+
+//EXPORT_UTILS
+
+int		check_export_arg(char **args);
+int		check_split_arg(char **split_arg);
 void	print_export(t_data *data);
 
 //UNSET
 
-int		unset_builtin(t_data *data, t_pid child);
+void	unset_builtin(t_data *data, t_pid child);
+void	remove_var(t_env *tmp);
 
 //ENV
 
@@ -50,6 +60,6 @@ void	env_error(t_data *data, char *arg);
 
 //EXIT
 
-int		exit_builtin(t_data *data, t_pid child);
+void	exit_builtin(t_data *data, t_pid child);
 
 #endif

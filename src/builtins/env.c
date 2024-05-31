@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:48:17 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/28 12:07:35 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/05/29 16:34:52 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,13 @@
 void	env_builtin(t_data *data, t_pid child)
 {
 	t_env	*tmp;
-	int		i;
 
 	if (child.lst->arg)
 		return(env_error(data, child.lst->arg));
 	tmp = data->env;
 	while (tmp)
 	{
-		i = 0;
-		printf("%s=", tmp->name);
-		while (tmp->value[i] != NULL)
-		{
-			printf("%s", tmp->value[i]);
-			i++;
-			if (tmp->value[i])
-				printf(":");
-		}
-		printf("\n");
+		printf("%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}
 }
