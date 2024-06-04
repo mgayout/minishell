@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 16:54:06 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:49:14 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,8 @@ typedef struct s_lstr
 {
 	char			*str;
 	int				id;
-	bool			heredoc;
 	bool			space;
 	t_lex_quote		quote;
-	t_errors		final_quote;
 	struct s_lstr	*next;
 	struct s_lstr	*prev;
 }					t_lstr;
@@ -104,11 +102,16 @@ typedef struct s_par
 	struct s_lstr	*cmd;
 	struct s_lstr	*arg;
 	int				infile_count;
-	struct s_lstr	*infile;
+	struct s_lstr	*infile_lst;
+	struct s_lstr	*heredoc_lst;
+	struct s_lstr	*last_infile;
 	int				outfile_count;
-	struct s_lstr	*outfile;
+	struct s_lstr	*outfile_lst;
+	struct s_lstr	*append_lst;
+	struct s_lstr	*last_outfile;
 	bool			pipein;
 	bool			pipeout;
+	bool			heredoc;
 	bool			append;
 	struct s_par	*next;
 	struct s_par	*prev;
@@ -170,15 +173,24 @@ typedef struct s_data
 
 void	print_error(t_data *data, char *error_msg, int error_code);
 int		minishell_loop(t_data *data);
-void	init_data(t_data *data);
 int		init_prompt(t_data *data);
+int		init_data(t_data *data);
 
-//CHECK_ERRORS
+//CHECK_LEXER
 
 int		check_lexer(t_data *data, t_lex *lexer);
-int		print_errors(t_data *data, t_errors n);
-int		print_errors2(t_data *data, t_errors n);
-int		no_final_quote(t_lex *lexer, t_errors n);
+int		error_type(t_data *data, t_errors n);
+
+//CHECK_PARSER
+
+int		check_parser(t_data *data, t_par *parser);
+void	check_heredoc(t_par *parser);
+int		check_infile(t_data *data, t_par *parser);
+int		check_outfile(t_data *data, t_par *parser, t_lex_redir n);
+int		create_outfile(t_data *data, t_lstr *last, char *file, t_lex_redir n);
+int		check_last_infile(t_data *data, t_par *parser);
+int		check_last_outfile(t_data *data, t_par *parser);
+void	wrong_heredoc(char *stop);
 
 //FREE
 

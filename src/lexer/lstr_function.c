@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:56:07 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:35:54 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:36:17 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_lstr	*new_lstr(void)
 		return (NULL);
 	new->str = NULL;
 	new->id = 0;
-	new->heredoc = false;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

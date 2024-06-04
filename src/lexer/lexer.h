@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:09:22 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 17:58:40 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:03:08 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,26 @@
 //LEXER
 
 int			lexer(t_data *data);
-int			add_new_t_lex(t_data *data,
-				t_lex **lexer, char *prompt, bool space);
+int			add_new_t_lex(t_data *data, t_lex **lexer, int i, bool space);
+int			check_quote(t_data *data);
 
 //LEX_TYPE
 
 int			token_type(t_lex *lexer, char *prompt);
-int			string_type(t_data *data, t_lex *lexer, bool space);
+int			string_type(t_data *data, int i, t_lex *lexer, bool space);
 
 //LEX_QUOTE
 
 int			data_noquote(t_lex *lexer, char *prompt, bool space);
 int			data_squote(t_lex *lexer,
-				char *prompt, bool space, t_errors final_quote);
+				char *prompt, bool space);
 int			data_dquote(t_lex *lexer,
-				char *prompt, bool space, t_errors final_quote);
+				char *prompt, bool space);
 
 //LEX_UTILS
 
 t_errors	count_quotes(char *prompt);
+void		print_lex(t_data *data);
 
 //LEX_FUNCTION
 

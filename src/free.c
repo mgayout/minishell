@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 17:37:46 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 15:05:10 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	free_all(t_data *data)
 {
-	if (data->prompt)
-		free(data->prompt);
 	if (data->envp)
 		free_tab(data->envp);
 	if (data->lexer)
@@ -68,7 +66,8 @@ void	free_lstr(t_lstr **lstr)
 	{
 		tmp = *lstr;
 		*lstr = (*lstr)->next;
-		free(tmp->str);
+		if (tmp->str)
+			free(tmp->str);
 		free(tmp);
 	}
 }
@@ -84,10 +83,18 @@ void	free_par(t_par **parser)
 			free_lstr(&(*parser)->cmd);
 		if ((*parser)->arg)
 			free_lstr(&(*parser)->arg);
-		if ((*parser)->infile)
-			free_lstr(&(*parser)->infile);
-		if ((*parser)->outfile)
-			free_lstr(&(*parser)->outfile);
+		if ((*parser)->infile_lst)
+			free_lstr(&(*parser)->infile_lst);
+		if ((*parser)->heredoc_lst)
+			free_lstr(&(*parser)->heredoc_lst);
+		if ((*parser)->outfile_lst)
+			free_lstr(&(*parser)->outfile_lst);
+		if ((*parser)->append_lst)
+			free_lstr(&(*parser)->append_lst);
+		if ((*parser)->last_infile)
+			free_lstr(&(*parser)->last_infile);
+		if ((*parser)->last_outfile)
+			free_lstr(&(*parser)->last_outfile);
 		*parser = (*parser)->next;
 		free(tmp);
 	}

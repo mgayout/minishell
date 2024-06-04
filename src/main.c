@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:28:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 17:57:38 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 17:10:42 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	print_error(t_data *data, char *error_msg, int error_code)
 {
 	ft_putstr_fd(error_msg, 2);
 	data->error = error_code;
+	free(error_msg);
 }
 
 int	main(int argc, char **argv, char *envp[])
@@ -39,43 +40,25 @@ int	main(int argc, char **argv, char *envp[])
 
 int	minishell_loop(t_data *data)
 {
-	init_data(data);
-	data->prompt = readline("minishell :");
-	if (init_prompt(data))
+	data->prompt = readline("minishell:");
+	if (init_prompt(data) && init_data(data))
 	{
 		if (lexer(data) && check_lexer(data, data->lexer))
 		{
-			parser(data);
-			expander(data);
-			exec(data);
+			//print_lex(data);
+			if (parser(data) && check_parser(data, data->parser))
+			{
+				//print_par(data);
+				expander(data);
+				//print_exp(data);
+				exec(data);
+			}
 		}
 		free_all(data);
 	}
 	if (data->exit)
 		return (0);
 	return (minishell_loop(data));
-}
-
-void	init_data(t_data *data)
-{
-	t_env	*env;
-	int		i;
-
-	env = data->env;
-	i = 0;
-	data->lexer = NULL;
-	data->parser = NULL;
-	data->expander = NULL;
-	data->exec = NULL;
-	data->error = 0;
-	data->envp = malloc(sizeof(char *) * (envsize(data->env) + 1));
-	while (env)
-	{
-		data->envp[i] = ft_strjoin_free(ft_strjoin_free(env->name, "=", 0), env->value, 1);
-		i++;
-		env = env->next;
-	}
-	data->envp[i] = NULL;
 }
 
 int	init_prompt(t_data *data)
@@ -101,4 +84,29 @@ int	init_prompt(t_data *data)
 		free(data->last_prompt);
 	data->last_prompt = ft_strdup(data->prompt);
 	return (status);
+}
+
+int	init_data(t_data *data)
+{
+	t_env	*env;
+	int		i;
+
+	env = data->env;
+	i = 0;
+	data->lexer = NULL;
+	data->parser = NULL;
+	data->expander = NULL;
+	data->exec = NULL;
+	data->error = 0;
+	data->envp = malloc(sizeof(char *) * (envsize(data->env) + 1));
+	if (!data->envp)
+		return (0);
+	while (env)
+	{
+		data->envp[i] = ft_strjoin_free(ft_strjoin_free(env->name, "=", 0), env->value, 1);
+		i++;
+		env = env->next;
+	}
+	data->envp[i] = NULL;
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:29:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:40:52 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:05:05 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	is_a_builtin(char *cmd)
 	return (0);
 }
 
-/*void	print_exp(t_data *data)
+void	print_exp(t_data *data)
 {
 	t_exp	*tmp;
 	
@@ -119,4 +119,4 @@ int	is_a_builtin(char *cmd)
 		printf("\n");
 		tmp = tmp->next;
 	}
-}*/
+}

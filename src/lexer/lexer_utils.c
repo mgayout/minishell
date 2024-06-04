@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:59:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:35:11 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:02:31 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_errors	count_quotes(char *prompt)
 	return (status);
 }
 
-/*void	print_lex(t_data *data)
+void	print_lex(t_data *data)
 {
 	t_lex	*tmp;
 	t_lstr	*tmp2;
@@ -65,4 +65,4 @@ t_errors	count_quotes(char *prompt)
 		tmp = tmp->next;
 		i++;
 	}
-}*/
+}

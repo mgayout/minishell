@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:26:41 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/23 17:40:21 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:58:02 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,17 @@ int	token_type(t_lex *lexer, char *prompt)
 	return (1);
 }
 
-int	string_type(t_data *data, t_lex *lexer, bool space)
+int	string_type(t_data *data, int i, t_lex *lexer, bool space)
 {
-	t_errors	final_quote;
-	int			i;
-
-	i = 0;
 	lexer->type = STRING;
 	while (data->prompt[i] && !ft_strchr("><| \t\r\v\f", data->prompt[i]))
 	{
 		if (data->prompt[i] == '\'' || data->prompt[i] == '"')
 		{
-			final_quote = count_quotes(data->prompt);
 			if (data->prompt[i] == '\'')
-				i += data_squote(lexer, data->prompt + i, space, final_quote);
+				i += data_squote(lexer, data->prompt + i, space);
 			else if (data->prompt[i] == '"')
-				i += data_dquote(lexer, data->prompt + i, space, final_quote);
+				i += data_dquote(lexer, data->prompt + i, space);
 		}
 		else
 			i += data_noquote(lexer, data->prompt + i, space);

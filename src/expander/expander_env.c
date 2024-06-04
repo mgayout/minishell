@@ -6,32 +6,34 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:34:44 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 13:35:43 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:20:32 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-char	*modify_expander(t_data *data, char *str)
+char	*modify_lstr(t_data *data, char *str)
 {
-	int	i;
+	char	*new;
+	int		i;
 
-	while (count_dollar(str))
+	new = ft_strdup(str);
+	while (count_dollar(new))
 	{
 		i = 0;
-		while (str[i] != '$')
+		while (new[i] != '$')
 			i++;
-		if (str[i + 1] == '$')
-			str = strjoinjoin(ft_substr(str, 0, i),
-					NULL, ft_substr(str, i + 2, ft_strlen(str) - (i + 2)));
-		else if (str[i + 1] == '?')
-			str = modify_str(ft_itoa(data->error), str, i);
-		else if (!ft_strchr(" \n\0\"'", str[i + 1]))
-			str = modify_str(search_var(data, str, i + 1), str, i);
+		if (new[i + 1] == '$')
+			new = strjoinjoin(ft_substr(new, 0, i),
+					NULL, ft_substr(new, i + 2, ft_strlen(new) - (i + 2)), new);
+		else if (new[i + 1] == '?')
+			new = modify_str(ft_itoa(data->error), new, i);
+		else if (!ft_strchr(" \n\0\"'", new[i + 1]))
+			new = modify_str(search_var(data, new, i + 1), new, i);
 		else
-			return (str);
+			return (new);
 	}
-	return (str);
+	return (new);
 }
 
 char	*modify_str(char *new, char *str, int i)
@@ -40,12 +42,18 @@ char	*modify_str(char *new, char *str, int i)
 	char	*end;
 	int		j;
 
-	begin = ft_substr(str, 0, i);
+	if (i == 0)
+		begin = NULL;
+	else
+		begin = ft_substr(str, 0, i);
 	j = i + 1;
 	while (str[j] && !ft_strchr("'\"\n$ ", str[j]))
 		j++;
-	end = ft_substr(str, j, ft_strlen(str) - j);
-	return (strjoinjoin(begin, new, end));
+	if (j == (int)ft_strlen(str))
+		end = NULL;
+	else
+		end = ft_substr(str, j, ft_strlen(str) - j);
+	return (strjoinjoin(begin, new, end, str));
 }
 
 char	*search_var(t_data *data, char *str, int i)
@@ -65,19 +73,21 @@ char	*search_var(t_data *data, char *str, int i)
 	new = NULL;
 	if (env)
 		new = ft_strdup(env->value);
+	free(var);
 	return (new);
 }
 
-char	*strjoinjoin(char *begin, char *new, char *end)
+char	*strjoinjoin(char *begin, char *new, char *end, char *str)
 {
+	free(str);
 	if (begin && new && end)
-		return (ft_strjoin(ft_strjoin(begin, new), end));
+		return (ft_strjoin_free(ft_strjoin_free(begin, new, 3), end, 3));
 	else if (!begin && new && end)
-		return (ft_strjoin(new, end));
+		return (ft_strjoin_free(new, end, 3));
 	else if (begin && !new && end)
-		return (ft_strjoin(begin, end));
+		return (ft_strjoin_free(begin, end, 3));
 	else if (begin && new && !end)
-		return (ft_strjoin(begin, new));
+		return (ft_strjoin_free(begin, new, 3));
 	else if (begin && !new && !end)
 		return (begin);
 	else if (!begin && new && !end)
