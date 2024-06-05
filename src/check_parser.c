@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:09:21 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 17:09:32 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 17:45:17 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int	check_last_infile(t_data *data, t_par *parser)
 	char	*file;
 
 	tmp = parser->last_infile;
+	file = NULL;
 	if (parser->heredoc)
 		return (1);
 	while (tmp)
@@ -178,7 +179,6 @@ int	check_last_outfile(t_data *data, t_par *parser)
 	{
 		free(file);
 		file = lstrjoin(parser->last_outfile);
-		printf("file = %s\n", file);
 		print_error(data, ft_strjoin_free(ft_strjoin_free("minishell: ", file, 2), ": ambiguous redirect\n", 1), 1);
 		return (1);
 	}

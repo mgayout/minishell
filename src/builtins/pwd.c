@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:59 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/29 16:28:14 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:07:43 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	pwd_builtin(t_data *data, t_pid child)
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, "PWD", ft_strlen("PWD")))
-			printf("%s\n", tmp->value);
+		{
+			ft_putstr_fd(tmp->value, 1);
+			ft_putstr_fd("\n", 1);
+		}
 		tmp = tmp->next;
 	}
 }
@@ -32,8 +35,7 @@ int	pwd_error(t_data *data, char *arg)
 {
 	if (arg[0] == '-' && &arg[1])
 	{
-		data->error = 2;
-		printf("pwd: invalid option -- '%s'\n", &arg[1]);
+		print_error(data, ft_strjoin_free(ft_strjoin("minishell: pwd: ", arg), ": invalid option\n", 1), 2);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 15:05:10 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:11:35 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,16 @@ void	free_all(t_data *data)
 		free_exp(&data->expander);
 	if (data->exec != NULL)
 		free_exe(&data->exec);
-	if (data->exit == true)
-	{
-		free_env(&data->env);
-		free_env(&data->export);
-		free(data->last_prompt);
-	}
 }
 
-void	free_env(t_env **env)
+void	free_env(t_env *env)
 {
 	t_env	*tmp;
 
-	while (*env != NULL)
+	while (env != NULL)
 	{
-		tmp = *env;
-		*env = (*env)->next;
+		tmp = env;
+		env = env->next;
 		free(tmp->name);
 		free(tmp->value);
 		free(tmp);

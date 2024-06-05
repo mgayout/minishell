@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:13:00 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:52:07 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:41:13 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	open_file_pipeline(t_data *data, t_pid child)
 {
-	if (child.lst->builtin || !data->exec->pid[data->exec->status])
+	if (!data->exec->pid[data->exec->status])
 	{
 		infile_pipeline(data, child);
 		outfile_pipeline(data, child);
@@ -48,19 +48,17 @@ void	infile_pipeline(t_data *data, t_pid child)
 void	outfile_pipeline(t_data *data, t_pid child)
 {
 	if (child.lst->outfile && !child.lst->append)
-	{
 		child.outfile = open(child.lst->outfile,
 				O_RDWR | O_TRUNC | O_CREAT, 0640);
-		dup2(child.outfile, STDOUT_FILENO);
-	}
 	else if (child.lst->outfile && child.lst->append)
-	{
 		child.outfile = open(child.lst->outfile,
 				O_WRONLY | O_CREAT | O_APPEND, 0640);
-		dup2(child.outfile, STDOUT_FILENO);
-	}
 	else if (child.lst->pipeout)
-		dup2(data->exec->pipefd[1], STDOUT_FILENO);
+		child.outfile = dup(data->exec->pipefd[1]);
 	else
+	{
 		close(data->exec->pipefd[1]);
+		child.outfile = data->exec->std_out;
+	}
+	dup2(child.outfile, STDOUT_FILENO);
 }

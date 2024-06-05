@@ -6,48 +6,53 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 12:22:12 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 12:25:32 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 17:32:18 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	check_export_arg(char **args)
+int	check_export_arg(t_data *data, char **args)
 {
 	char	**split_arg;
-	int		status;
 	int		i;
 
-	status = 0;
 	i = 0;
 	while (args[i])
 	{
 		split_arg = ft_split(args[i], '=');
-		status = check_split_arg(split_arg);
-		free_tab(split_arg);
+		if (check_name_arg(data, split_arg[0]))
+		{
+			free_tab(split_arg);
+			return (1);
+		}
 		i++;
+		free_tab(split_arg);
 	}
-	return (status);
+	return (0);
 }
 
-int	check_split_arg(char **split_arg)
+int	check_name_arg(t_data *data, char *arg)
 {
-	int	j;
-	int	status;
+	int	i;
 
-	status = 0;
-	j = 0;
-	while (split_arg[0][j])
+	i = 0;
+	if (!arg)
 	{
-		if ((split_arg[0][j] < 'a' || split_arg[0][j] > 'z')
-			&& (split_arg[0][j] < 'A' || split_arg[0][j] > 'Z'))
-		{
-			printf("bash: export: '%s': not a valid identifier\n", split_arg[0]);
-			status = 1;
-		}
-		j++;
+		print_error(data, ft_strdup("minishell: export: '=': not a valid identifier\n"), 1);
+		return (1);
 	}
-	return (status);
+	while (arg[i])
+	{
+		if ((arg[i] < 'a' || arg[i] > 'z')
+			&& (arg[i] < 'A' || arg[i] > 'Z'))
+			{
+				print_error(data, ft_strjoin_free(ft_strjoin("minishell: export: '", arg), "': not a valid identifier\n", 1), 1);
+				return (1);
+			}
+		i++;
+	}
+	return (0);
 }
 
 void	print_export(t_data *data)
@@ -55,12 +60,17 @@ void	print_export(t_data *data)
 	t_env	*tmp;
 
 	tmp = data->export;
-	while (tmp)
+	while (tmp && tmp->name)
 	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(tmp->name, 1);
 		if (tmp->value)
-			printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
-		else
-			printf("declare -x %s\n", tmp->name);
+		{
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(tmp->value, 1);
+			ft_putstr_fd("\"", 1);
+		}
+		ft_putstr_fd("\n", 1);
 		tmp = tmp->next;
 	}
 }

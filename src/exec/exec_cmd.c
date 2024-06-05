@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:55:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 14:52:11 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:13:46 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,25 @@ void	children(t_data *data, t_pid child)
 			path = path->next;
 		}
 		child.arg1 = create_arg1(path, child.lst->cmd);
-		child.arg2 = create_arg2(child);
+		if (child.arg1)
+			child.arg2 = create_arg2(child);
 		if (child.arg1 && child.arg2)
-			execve(child.arg1, child.arg2, data->envp);
+		{
+			if (execve(child.arg1, child.arg2, data->envp) == -1)
+			{
+				exit(2);
+			}
+			exit(1);
+		}
 		else
 			print_error(data, ft_strjoin(child.lst->cmd, ": command not found\n"), 127);
+		exit(127);
 	}
 }
 
 char	*create_arg1(t_env *path, char *str)
 {
 	char	**path_arg;
-	char	*tmp;
 	char	*path_cmd;
 	int		i;
 
@@ -49,14 +56,16 @@ char	*create_arg1(t_env *path, char *str)
 	i = 0;
 	while (path_arg[i] != NULL)
 	{
-		tmp = ft_strjoin(path_arg[i], "/");
-		path_cmd = ft_strjoin(tmp, str);
-		free(tmp);
+		path_cmd = ft_strjoin_free(ft_strjoin(path_arg[i], "/"), str, 1);
 		if (access(path_cmd, 0) == 0)
+		{
+			free_tab(path_arg);
 			return (path_cmd);
+		}
 		free(path_cmd);
 		i++;
 	}
+	free_tab(path_arg);
 	if (access(str, 0) == 0)
 		return (str);
 	return (NULL);

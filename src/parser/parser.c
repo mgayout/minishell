@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:55:09 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 17:03:43 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 14:21:13 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,40 @@
 int	parser(t_data *data)
 {
 	t_lex	*lexer;
-	int		i;
 
 	lexer = data->lexer;
 	while (lexer != NULL)
 	{
-		i = init_parser(&data->parser, lexer);
-		if (i == -1)
-			return (0);
-		while (lexer && i != 0)
-		{
+		lexer = init_parser(data, lexer);
+		if (lexer)
 			lexer = lexer->next;
-			i --;
-		}
 	}
+	if (!data->parser)
+		return (0);
 	return (1);
 }
 
-int	init_parser(t_par **parser, t_lex *lexer)
+t_lex	*init_parser(t_data *data, t_lex *lexer)
 {
 	t_par	*new;
-	int		i;
 
 	new = new_par();
 	if (!new)
-		return (-1);
-	i = 0;
+		return (NULL);
 	while (lexer)
 	{
-		if (parser_type(new, lexer))
+		if (parser_type(data, new, lexer))
 			break;
 		lexer = lexer->next;
-		i++;
 	}
-	paradd_back(parser, new);
-	return (i);
+	paradd_back(&data->parser, new);
+	return (lexer);
 }
 
-int	parser_type(t_par *new, t_lex *lexer)
+int	parser_type(t_data *data, t_par *new, t_lex *lexer)
 {
 	if (new->id == 0)
-		first_elem(new, lexer);
+		first_elem(data, new, lexer);
 	else if (lexer->type != PIPE)
 	{
 		if (lexer->prev && (lexer->prev->redir == INFILE

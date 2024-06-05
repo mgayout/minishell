@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:34:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 14:09:50 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 12:22:59 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,21 @@ int	check_lexer(t_data *data, t_lex *lexer)
 int	error_type(t_data *data, t_errors n)
 {
 	if (n == BEGIN_PIPE)
-		print_error(data, "minishell: syntax error near unexpected token `|'\n", 2);
+		print_error(data, ft_strdup("minishell: syntax error near unexpected token `|'\n"), 2);
 	else if (n == END_PIPE)
-		print_error(data, "minishell: syntax error: unexpected end of file\n", 2);
+		print_error(data, ft_strdup("minishell: syntax error: unexpected end of file\n"), 2);
 	else if (n == END_TOKEN)
-		print_error(data, "minishell: syntax error near unexpected token `newline'\n", 2);
+		print_error(data, ft_strdup("minishell: syntax error near unexpected token `newline'\n"), 2);
 	else if (n == END_MULTITOKEN && lexlast(data->lexer)->redir == INFILE)
-		print_error(data, "minishell: syntax error near unexpected token '<'\n", 2);
+		print_error(data, ft_strdup("minishell: syntax error near unexpected token '<'\n"), 2);
 	else if (n == END_MULTITOKEN && lexlast(data->lexer)->redir == HEREDOC)
-		print_error(data, "minishell: syntax error near unexpected token '<<'\n", 2);
+		print_error(data, ft_strdup("minishell: syntax error near unexpected token '<<'\n"), 2);
 	else if (n == END_MULTITOKEN && lexlast(data->lexer)->redir == OUTFILE)
-		print_error(data, "minishell: syntax error near unexpected token '>'\n", 2);
+		print_error(data, ft_strdup("minishell: syntax error near unexpected token '>'\n"), 2);
 	else if (n == END_MULTITOKEN && lexlast(data->lexer)->redir == APPEND)
-		print_error(data, "minishell: syntax error near unexpected token '>>'\n", 2);
-	else if (n == IS_A_DIR)
+		print_error(data, ft_strdup("minishell: syntax error near unexpected token '>>'\n"), 2);
+	/*else if (n == IS_A_DIR)
 		print_error(data, ft_strjoin_free(ft_strjoin("minishell: ", data->lexer->data->str),
-			": Is a directory\n", 1), 126);
+			": Is a directory\n", 1), 126);*/
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:34:44 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 16:20:32 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 07:45:10 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ char	*modify_lstr(t_data *data, char *str)
 		while (new[i] != '$')
 			i++;
 		if (new[i + 1] == '$')
-			new = strjoinjoin(ft_substr(new, 0, i),
-					NULL, ft_substr(new, i + 2, ft_strlen(new) - (i + 2)), new);
+			new = strjoinjoin(ft_substr(new, 0, i), NULL,
+					ft_substr(new, i + 2, ft_strlen(new) - (i + 2)), new);
 		else if (new[i + 1] == '?')
-			new = modify_str(ft_itoa(data->error), new, i);
+			new = strjoinjoin(ft_substr(new, 0, i), ft_itoa(data->error),
+					ft_substr(new, i + 2, ft_strlen(new) - (i + 2)), new);
 		else if (!ft_strchr(" \n\0\"'", new[i + 1]))
 			new = modify_str(search_var(data, new, i + 1), new, i);
 		else

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:56:07 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 11:36:17 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:58:59 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ char	*lstrjoin(t_lstr *lst)
 			else
 			{
 				if (lst->space)
-					str = ft_strjoin(ft_strjoin(str, " "), lst->str);
+					str = ft_strjoin_free(ft_strjoin_free(str, " ", 1), lst->str, 1);
 				else
-					str = ft_strjoin(str, lst->str);
+					str = ft_strjoin_free(str, lst->str, 1);
 			}
 		}
 		lst = lst->next;

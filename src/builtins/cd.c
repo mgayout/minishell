@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:33 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/29 16:26:09 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 08:25:54 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ int	is_a_directory(t_data *data, char *str)
 		return (0);
 	file = open(str, O_RDONLY);
 	if (file == -1)
-		printf("bash: cd: %s: No such file or directory\n", str);
+		print_error(data, ft_strjoin_free(ft_strjoin("minishell: cd: ", str), ": No such file or directory\n", 1), 1);
 	else
 	{
-		printf("bash: cd: %s: Not a directory\n", str);
+		print_error(data, ft_strjoin_free(ft_strjoin("minishell: cd: ", str), ": Not a directory\n", 1), 1);
 		close(file);
 	}
-	data->error = 1;
 	return (1);
 }

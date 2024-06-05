@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:47:23 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 13:26:13 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:14:01 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ void	export_builtin(t_data *data, t_pid child)
 	{
 		i = 0;
 		args = ft_split(child.lst->arg, ' ');
-		if (!check_export_arg(args))
+		if (!check_export_arg(data, args))
 		{
 			while (args[i])
 			{
 				init_new_export(data, args[i]);
+				if (ft_strchr(args[i], '='))
+					init_new_env(data, args[i]);
 				i++;
 			}
 		}
@@ -58,8 +60,31 @@ void	init_new_export(t_data *data, char *arg)
 		i++;
 	}
 	find_pos_export(data, new);
-	if (new->value)
-		find_pos_env(data, new);
+	free_tab(split_arg);
+}
+
+void	init_new_env(t_data *data, char *arg)
+{
+	char	**split_arg;
+	t_env	*new;
+	int		i;
+
+	split_arg = ft_split(arg, '=');
+	new = malloc(sizeof(t_env));
+	new->name = ft_strdup(split_arg[0]);
+	new->value = NULL;
+	new->prev = NULL;
+	new->next = NULL;
+	i = 1;
+	while (split_arg[i])
+	{
+		if (!new->value)
+			new->value = ft_strdup(split_arg[i]);
+		else
+			new->value = ft_strjoin(new->value, ft_strjoin("=", split_arg[i]));
+		i++;
+	}
+	envadd_back(&data->env, new);
 	free_tab(split_arg);
 }
 
@@ -72,7 +97,14 @@ void	find_pos_export(t_data *data, t_env *new)
 	{
 		if (ft_strncmp(pos->name, new->name, ft_strlen(pos->name)) >= 0)
 		{
-			add_new_export(pos, new);
+			if (!pos->prev)
+			{
+				data->export->prev = new;
+				new->next = data->export;
+				data->export = new;
+			}
+			else
+				add_new_export(pos, new);
 			break;
 		}
 		pos = pos->next;
@@ -95,22 +127,4 @@ void	add_new_export(t_env *pos, t_env *new)
 	}
 	else if (!ft_strncmp(pos->name, new->name, ft_strlen(pos->name)) && new->value)
 		pos->value = ft_strdup(new->value);
-}
-
-void	find_pos_env(t_data *data, t_env *new)
-{
-	t_env	*pos;
-	
-	pos = data->env;
-	while (pos)
-	{
-		if (!ft_strncmp(pos->name, new->name, ft_strlen(pos->name)))
-		{
-			pos->value = ft_strdup(new->value);
-			break;
-		}
-		pos = pos->next;
-	}
-	if (!pos)
-		envadd_back(&data->env, new);
 }

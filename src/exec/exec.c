@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:29:25 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 13:37:10 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:19:26 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,14 @@ void	exec_cmd_file(t_data *data)
 	data->exec->child[data->exec->status] = init_child(data);
 	child = data->exec->child[data->exec->status];
 	data->exec->pid = malloc(sizeof(int));
-	if (!child.lst->builtin)
+	if (child.lst->builtin != 7)
 		data->exec->pid[0] = fork();
-	if (child.lst->builtin || !data->exec->pid[0])
+	if (child.lst->builtin == 7 || !data->exec->pid[0])
 	{
 		open_file_cmd(data, child);
 		children(data, child);
 	}
-	if (!child.lst->builtin)
-		waitpid(data->exec->pid[0], NULL, 0);
+	waitpid(data->exec->pid[0], NULL, 0);
 }
 
 void	exec_pipeline(t_data *data)
@@ -56,10 +55,10 @@ void	exec_pipeline(t_data *data)
 		child = data->exec->child[i];
 		if (child.lst->pipeout)
 			pipe(data->exec->pipefd);
-		if (!child.lst->builtin)
-			data->exec->pid[i] = fork();
+		data->exec->pid[i] = fork();
+		
 		open_file_pipeline(data, child);
-		if (child.lst->builtin || !data->exec->pid[i])
+		if (!data->exec->pid[i])
 			children(data, child);
 		waitpid(data->exec->pid[i], NULL, 0);
 		data->exec->status += 1;

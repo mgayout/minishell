@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:26:30 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 14:37:30 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 14:21:25 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "../lexer/lexer.h"
 #include "../expander/expander.h"
 
-void	first_elem(t_par *new, t_lex *lexer)
+void	first_elem(t_data *data, t_par *new, t_lex *lexer)
 {
-	if (new->prev == NULL)
+	if (!data->parser)
 		new->id = 1;
 	else
 	{
-		new->id = new->prev->id + 1;
+		new->id = parlast(data->parser)->id + 1;
 		new->pipein = true;	
 	}
 	if (lexer->type == STRING)

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:28:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 17:10:42 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 17:59:54 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ int	main(int argc, char **argv, char *envp[])
 	data.env = init_env(envp);
 	data.export = init_export(&data, envp);
 	data.last_prompt = NULL;
-	data.exit = false;
+	data.error = 0;
 	minishell_loop(&data);
+	free_env(data.env);
+	free_env(data.export);
+	free(data.last_prompt);
 	rl_clear_history();
+	return (data.error);
 }
 
 int	minishell_loop(t_data *data)
@@ -56,8 +60,6 @@ int	minishell_loop(t_data *data)
 		}
 		free_all(data);
 	}
-	if (data->exit)
-		return (0);
 	return (minishell_loop(data));
 }
 
@@ -93,11 +95,11 @@ int	init_data(t_data *data)
 
 	env = data->env;
 	i = 0;
+	data->error = 0;
 	data->lexer = NULL;
 	data->parser = NULL;
 	data->expander = NULL;
 	data->exec = NULL;
-	data->error = 0;
 	data->envp = malloc(sizeof(char *) * (envsize(data->env) + 1));
 	if (!data->envp)
 		return (0);

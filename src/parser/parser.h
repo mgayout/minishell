@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:55:30 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/03 14:20:15 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 14:15:04 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 //PARSER
 
 int		parser(t_data *data);
-int		init_parser(t_par **parser, t_lex *lexer);
-int		parser_type(t_par *new, t_lex *lexer);
+t_lex	*init_parser(t_data *data, t_lex *lexer);
+int		parser_type(t_data *data, t_par *new, t_lex *lexer);
 void	print_par(t_data *data);
 
 //PARSER_INIT
 
-void	first_elem(t_par *new, t_lex *lexer);
+void	first_elem(t_data *data, t_par *new, t_lex *lexer);
 void	infile_parser(t_par *parser, t_lex *lexer);
 void	outfile_parser(t_par *parser, t_lex *lexer);
 void	cmd_arg_parser(t_par *parser, t_lex *lexer);

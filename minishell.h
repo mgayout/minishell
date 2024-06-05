@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 16:49:14 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:11:51 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ typedef struct s_data
 	struct s_exp	*expander;
 	struct s_exe	*exec;
 	int				error;
-	bool			exit;
 }					t_data;
 
 //MAIN
@@ -195,7 +194,7 @@ void	wrong_heredoc(char *stop);
 //FREE
 
 void	free_all(t_data *data);
-void	free_env(t_env **env);
+void	free_env(t_env *env);
 void	free_lex(t_lex **lexer);
 void	free_lstr(t_lstr **lstr);
 void	free_par(t_par **parser);
