@@ -1,0 +1,11 @@
+export :
+
+- a =b : Segfault
+
+- a=b 3=e : a n'est pas ajoute
+
+- 3=e a=b : a n'est pas ajoute
+
+cd :
+
+- cd a b : too many argu

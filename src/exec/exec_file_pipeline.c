@@ -6,15 +6,15 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:13:00 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 15:41:13 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 18:11:28 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../includes/minishell.h"
 
 void	open_file_pipeline(t_data *data, t_pid child)
 {
-	if (!data->exec->pid[data->exec->status])
+	if (child.lst->builtin < 3 || !data->exec->pid[data->exec->status])
 	{
 		infile_pipeline(data, child);
 		outfile_pipeline(data, child);

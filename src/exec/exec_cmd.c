@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:55:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 18:13:46 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:37 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../includes/minishell.h"
 
 void	children(t_data *data, t_pid child)
 {
@@ -39,7 +39,7 @@ void	children(t_data *data, t_pid child)
 			exit(1);
 		}
 		else
-			print_error(data, ft_strjoin(child.lst->cmd, ": command not found\n"), 127);
+			print_error(ft_strjoin(child.lst->cmd, ": command not found\n"), 127);
 		exit(127);
 	}
 }

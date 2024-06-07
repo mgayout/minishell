@@ -6,21 +6,16 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:28:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 17:59:54 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:41:22 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "env/env.h"
-#include "lexer/lexer.h"
-#include "parser/parser.h"
-#include "exec/exec.h"
-#include "expander/expander.h"
+#include "../includes/minishell.h"
 
-void	print_error(t_data *data, char *error_msg, int error_code)
+void	print_error(char *error_msg, int error_code)
 {
 	ft_putstr_fd(error_msg, 2);
-	data->error = error_code;
+	g_global.error = error_code;
 	free(error_msg);
 }
 
@@ -31,15 +26,11 @@ int	main(int argc, char **argv, char *envp[])
 	if (argc != 1 || argv[1])
 		return (0);
 	data.env = init_env(envp);
-	data.export = init_export(&data, envp);
+	data.export = init_export(data.env, envp);
 	data.last_prompt = NULL;
-	data.error = 0;
+	g_global.error = 0;
 	minishell_loop(&data);
-	free_env(data.env);
-	free_env(data.export);
-	free(data.last_prompt);
-	rl_clear_history();
-	return (data.error);
+	return (0);
 }
 
 int	minishell_loop(t_data *data)
@@ -58,7 +49,7 @@ int	minishell_loop(t_data *data)
 				exec(data);
 			}
 		}
-		free_all(data);
+		free_all(data, 0);
 	}
 	return (minishell_loop(data));
 }
@@ -95,7 +86,6 @@ int	init_data(t_data *data)
 
 	env = data->env;
 	i = 0;
-	data->error = 0;
 	data->lexer = NULL;
 	data->parser = NULL;
 	data->expander = NULL;

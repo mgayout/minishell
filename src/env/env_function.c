@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:19:58 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/29 14:56:10 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:52 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../../includes/minishell.h"
 
 t_env	*envlast(t_env *lst)
 {

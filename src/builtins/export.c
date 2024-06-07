@@ -6,12 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:47:23 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 16:14:01 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:53:16 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "../env/env.h"
+#include "../../includes/minishell.h"
 
 void	export_builtin(t_data *data, t_pid child)
 {
@@ -24,7 +23,7 @@ void	export_builtin(t_data *data, t_pid child)
 	{
 		i = 0;
 		args = ft_split(child.lst->arg, ' ');
-		if (!check_export_arg(data, args))
+		if (!check_export_arg(args))
 		{
 			while (args[i])
 			{

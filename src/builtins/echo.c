@@ -6,13 +6,13 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:45:51 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 15:56:16 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:39:05 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../../includes/minishell.h"
 
-void	echo_builtin(t_data *data, t_pid child)
+void	echo_builtin(t_pid child)
 {
 	if (!child.lst->arg)
 		ft_putstr_fd("\n", 1);
@@ -23,7 +23,7 @@ void	echo_builtin(t_data *data, t_pid child)
 	}
 	else
 		ft_putstr_fd(child.lst->arg, 1);
-	exit(data->error);
+	exit(0);
 }
 
 int	echo_arg(t_exp *lst)

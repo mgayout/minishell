@@ -6,12 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:49:15 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/21 12:44:06 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:44 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
-#include "../expander/expander.h"
+#include "../../includes/minishell.h"
 
 t_exe	*init_exe(t_exp *expander)
 {

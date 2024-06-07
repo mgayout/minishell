@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:29:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 12:05:05 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 18:09:38 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expander.h"
+#include "../../includes/minishell.h"
 
 int	count_dollar(char *str)
 {
@@ -69,9 +69,9 @@ int	is_a_builtin(char *cmd)
 		return (0);
 	if (!ft_strncmp(cmd, "echo", 5))
 		return (1);
-	else if (!ft_strncmp(cmd, "cd", 3))
-		return (2);
 	else if (!ft_strncmp(cmd, "pwd", 4))
+		return (2);
+	else if (!ft_strncmp(cmd, "cd", 3))
 		return (3);
 	else if (!ft_strncmp(cmd, "export", 7))
 		return (4);

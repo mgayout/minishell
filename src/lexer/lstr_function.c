@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:56:07 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 09:58:59 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:14 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../includes/minishell.h"
 
 t_lstr	*new_lstr(void)
 {

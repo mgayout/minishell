@@ -6,12 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:47:55 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 10:13:51 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:53:21 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "../env/env.h"
+#include "../../includes/minishell.h"
 
 void	unset_builtin(t_data *data, t_pid child)
 {

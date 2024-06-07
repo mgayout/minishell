@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:53:27 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/24 15:48:02 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:39 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../includes/minishell.h"
 
 void	open_file_cmd(t_data *data, t_pid child)
 {

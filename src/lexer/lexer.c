@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:10:19 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 12:53:13 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:59:51 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../includes/minishell.h"
 
 int	lexer(t_data *data)
 {
@@ -52,19 +52,19 @@ int	add_new_t_lex(t_data *data, t_lex **lexer, int i, bool space)
 
 int	check_quote(t_data *data)
 {
-	t_errors	err;
+	int	err;
 
 	err = count_quotes(data->prompt);
-	if (err == NO_EOF_SQ)
+	if (err == 1)
 	{
 		ft_putstr_fd("minishell: unexpected EOF while looking for matching '''\n", 2);
-		print_error(data, "minishell: syntax error: unexpected end of file\n", 2);
+		print_error("minishell: syntax error: unexpected end of file\n", 2);
 		return (1);
 	}
-	else if (err == NO_EOF_DQ)
+	else if (err == 2)
 	{
 		ft_putstr_fd("minishell: unexpected EOF while looking for matching '\"'\n", 2);
-		print_error(data, "minishell: syntax error: unexpected end of file\n", 2);
+		print_error("minishell: syntax error: unexpected end of file\n", 2);
 		return (1);
 	}
 	return (0);

@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:08:47 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 13:59:31 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:54 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../../includes/minishell.h"
 
 t_env	*init_env(char **envp)
 {
@@ -46,12 +46,12 @@ void	fill_env(t_env **env, char *envp)
 	envadd_back(env, new);
 }
 
-t_env	*init_export(t_data *data, char **envp)
+t_env	*init_export(t_env *env, char **envp)
 {
 	t_env	*export;
 
 	export = NULL;
-	while (export_missing(data->env, export))
+	while (export_missing(env, export))
 		find_export_target(&export, envp);
 	return (export);
 }

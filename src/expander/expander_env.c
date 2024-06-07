@@ -6,11 +6,13 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:34:44 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 07:45:10 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:20 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expander.h"
+#include "../../includes/minishell.h"
+
+t_global	g_global;
 
 char	*modify_lstr(t_data *data, char *str)
 {
@@ -27,7 +29,7 @@ char	*modify_lstr(t_data *data, char *str)
 			new = strjoinjoin(ft_substr(new, 0, i), NULL,
 					ft_substr(new, i + 2, ft_strlen(new) - (i + 2)), new);
 		else if (new[i + 1] == '?')
-			new = strjoinjoin(ft_substr(new, 0, i), ft_itoa(data->error),
+			new = strjoinjoin(ft_substr(new, 0, i), ft_itoa(g_global.error),
 					ft_substr(new, i + 2, ft_strlen(new) - (i + 2)), new);
 		else if (!ft_strchr(" \n\0\"'", new[i + 1]))
 			new = modify_str(search_var(data, new, i + 1), new, i);

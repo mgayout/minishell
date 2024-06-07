@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:48:59 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/31 17:03:58 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:56 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../../includes/minishell.h"
 
 int	export_missing(t_env *env, t_env *export)
 {

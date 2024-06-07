@@ -6,13 +6,13 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 16:11:35 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:51:46 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../includes/minishell.h"
 
-void	free_all(t_data *data)
+void	free_all(t_data *data, int status)
 {
 	if (data->envp)
 		free_tab(data->envp);
@@ -24,6 +24,13 @@ void	free_all(t_data *data)
 		free_exp(&data->expander);
 	if (data->exec != NULL)
 		free_exe(&data->exec);
+	if (status == 1)
+	{
+		free_env(data->env);
+		free_env(data->export);
+		free(data->last_prompt);
+		rl_clear_history();
+	}
 }
 
 void	free_env(t_env *env)

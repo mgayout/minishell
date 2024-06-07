@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:24:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 16:34:35 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:30 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expander.h"
+#include "../../includes/minishell.h"
 
 int	expander(t_data *data)
 {

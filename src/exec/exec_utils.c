@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:35:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/05/16 12:55:36 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:46 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../includes/minishell.h"
 
 int	init_heredoc(t_data *data, char *stop)
 {

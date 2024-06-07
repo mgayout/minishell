@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:46:56 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 11:13:20 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:04 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../includes/minishell.h"
 
 t_lex	*new_lex(void)
 {

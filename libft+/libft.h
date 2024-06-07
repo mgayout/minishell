@@ -15,12 +15,6 @@
 
 # include <stdio.h>
 
-/*typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}		t_list;*/
-
 //Part I
 
 int		ft_atoi(const char *str);

@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:26:41 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 11:58:02 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:07 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../includes/minishell.h"
 
 int	token_type(t_lex *lexer, char *prompt)
 {

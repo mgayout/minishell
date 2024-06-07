@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:39:13 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/03 13:04:00 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:06 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../includes/minishell.h"
 
 int	data_noquote(t_lex *lexer, char *prompt, bool space)
 {

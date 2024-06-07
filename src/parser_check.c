@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_parser.c                                     :+:      :+:    :+:   */
+/*   parser_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:09:21 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 17:45:17 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:51:38 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "lexer/lexer.h"
-#include "expander/expander.h"
+#include "../includes/minishell.h"
 
 int	check_parser(t_data *data, t_par *parser)
 {
@@ -82,7 +80,7 @@ int	check_infile(t_data *data, t_par *parser)
 		}
 		if (open(file, O_RDONLY) == -1)
 		{
-			print_error(data, ft_strjoin_free(ft_strjoin_free("minishell: ", file, 2), ": No such file or directory\n", 1), 1);
+			print_error(ft_strjoin_free(ft_strjoin_free("minishell: ", file, 2), ": No such file or directory\n", 1), 1);
 			return (1);
 		}
 		free(file);
@@ -113,17 +111,17 @@ int	check_outfile(t_data *data, t_par *parser, t_lex_redir n)
 				file = ft_strjoin_free(file, modify_lstr(data, tmp->str), 1);
 			tmp = tmp->next;
 		}
-		if (create_outfile(data, last, file, n))
+		if (create_outfile(last, file, n))
 			return (1);
 	}
 	return (0);
 }
 
-int	create_outfile(t_data *data, t_lstr *last, char *file, t_lex_redir n)
+int	create_outfile(t_lstr *last, char *file, t_lex_redir n)
 {
 	if (!file || file[0] == '\0')
 	{
-		print_error(data, ft_strjoin_free(ft_strjoin_free("minishell: ", lstrjoin(last), 2), ": ambiguous redirect\n", 1), 1);
+		print_error(ft_strjoin_free(ft_strjoin_free("minishell: ", lstrjoin(last), 2), ": ambiguous redirect\n", 1), 1);
 		return (1);
 	}
 	if (n == OUTFILE)
@@ -153,7 +151,7 @@ int	check_last_infile(t_data *data, t_par *parser)
 	}
 	if (open(file, O_RDONLY) == -1)
 	{
-		print_error(data, ft_strjoin_free(ft_strjoin_free("minishell: ", file, 2), ": No such file or directory\n", 1), 1);
+		print_error(ft_strjoin_free(ft_strjoin_free("minishell: ", file, 2), ": No such file or directory\n", 1), 1);
 		return (1);
 	}
 	free(file);
@@ -179,7 +177,7 @@ int	check_last_outfile(t_data *data, t_par *parser)
 	{
 		free(file);
 		file = lstrjoin(parser->last_outfile);
-		print_error(data, ft_strjoin_free(ft_strjoin_free("minishell: ", file, 2), ": ambiguous redirect\n", 1), 1);
+		print_error(ft_strjoin_free(ft_strjoin_free("minishell: ", file, 2), ": ambiguous redirect\n", 1), 1);
 		return (1);
 	}
 	return (0);

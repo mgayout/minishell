@@ -6,7 +6,7 @@
 #    By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 09:16:25 by mgayout           #+#    #+#              #
-#    Updated: 2024/06/04 14:10:07 by mgayout          ###   ########.fr        #
+#    Updated: 2024/06/07 16:56:08 by mgayout          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ OBJ_DIR = obj/
 LIBFT = libft+/libft.a
 
 SRC =	main \
-		check_lexer \
-		check_parser \
+		lexer_check \
+		parser_check \
 		free \
 		free2 \
 

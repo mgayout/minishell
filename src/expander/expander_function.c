@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 18:10:25 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/04 11:18:29 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:52:23 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expander.h"
+#include "../../includes/minishell.h"
 
 t_exp	*new_exp(void)
 {

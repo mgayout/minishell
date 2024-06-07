@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:55:09 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/05 14:21:13 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:51:53 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../../includes/minishell.h"
 
 int	parser(t_data *data)
 {
