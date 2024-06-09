@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:55:09 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:51:53 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:38:14 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_lex	*init_parser(t_data *data, t_lex *lexer)
 	while (lexer)
 	{
 		if (parser_type(data, new, lexer))
-			break;
+			break ;
 		lexer = lexer->next;
 	}
 	paradd_back(&data->parser, new);
@@ -52,10 +52,10 @@ int	parser_type(t_data *data, t_par *new, t_lex *lexer)
 	else if (lexer->type != PIPE)
 	{
 		if (lexer->prev && (lexer->prev->redir == INFILE
-			|| lexer->prev->redir == HEREDOC))
+				|| lexer->prev->redir == HEREDOC))
 			infile_parser(new, lexer);
 		else if (lexer->prev && (lexer->prev->redir == OUTFILE
-			|| lexer->prev->redir == APPEND))
+				|| lexer->prev->redir == APPEND))
 			outfile_parser(new, lexer);
 		else if (lexer->type == STRING)
 			cmd_arg_parser(new, lexer);

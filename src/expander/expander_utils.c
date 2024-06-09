@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:29:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 18:09:38 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:33:31 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	is_a_builtin(char *cmd)
 void	print_exp(t_data *data)
 {
 	t_exp	*tmp;
-	
+
 	tmp = data->expander;
 	printf("\nEXPANDER\n\n");
 	while (tmp)
@@ -101,7 +101,7 @@ void	print_exp(t_data *data)
 		if (tmp->infile)
 		{
 			if (tmp->heredoc == false)
-				printf("infile = %s\n", tmp->infile);	
+				printf("infile = %s\n", tmp->infile);
 			else
 				printf("limiter = %s\n", tmp->infile);
 		}

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 12:22:12 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:53:14 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:07:17 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,19 @@ int	check_name_arg(char *arg)
 	i = 0;
 	if (!arg)
 	{
-		print_error(ft_strdup("minishell: export: '=': not a valid identifier\n"), 1);
+		print_error(ft_strdup("minishell: export: '=': \
+not a valid identifier\n"), 1);
 		return (1);
 	}
 	while (arg[i])
 	{
 		if ((arg[i] < 'a' || arg[i] > 'z')
 			&& (arg[i] < 'A' || arg[i] > 'Z'))
-			{
-				print_error(ft_strjoin_free(ft_strjoin("minishell: export: '", arg), "': not a valid identifier\n", 1), 1);
-				return (1);
-			}
+		{
+			print_error(ft_strjoin_free(ft_strjoin("minishell: export: '", arg),
+					"': not a valid identifier\n", 1), 1);
+			return (1);
+		}
 		i++;
 	}
 	return (0);

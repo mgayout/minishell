@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:34:49 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:58:57 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 20:59:16 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	check_lexer(t_data *data, t_lex *lexer)
 {
@@ -29,18 +29,25 @@ int	check_lexer(t_data *data, t_lex *lexer)
 int	error_type(t_data *data, int n)
 {
 	if (n == 0)
-		print_error(ft_strdup("minishell: syntax error near unexpected token `|'\n"), 2);
+		print_error(ft_strdup("minishell: syntax error near\
+ unexpected token `|'\n"), 2);
 	else if (n == 1)
-		print_error(ft_strdup("minishell: syntax error: unexpected end of file\n"), 2);
+		print_error(ft_strdup("minishell: syntax error:\
+ unexpected end of file\n"), 2);
 	else if (n == 2)
-		print_error(ft_strdup("minishell: syntax error near unexpected token `newline'\n"), 2);
+		print_error(ft_strdup("minishell: syntax error near\
+ unexpected token `newline'\n"), 2);
 	else if (n == 3 && lexlast(data->lexer)->redir == INFILE)
-		print_error(ft_strdup("minishell: syntax error near unexpected token '<'\n"), 2);
+		print_error(ft_strdup("minishell: syntax error near\
+ unexpected token '<'\n"), 2);
 	else if (n == 3 && lexlast(data->lexer)->redir == HEREDOC)
-		print_error(ft_strdup("minishell: syntax error near unexpected token '<<'\n"), 2);
+		print_error(ft_strdup("minishell: syntax error near\
+ unexpected token '<<'\n"), 2);
 	else if (n == 3 && lexlast(data->lexer)->redir == OUTFILE)
-		print_error(ft_strdup("minishell: syntax error near unexpected token '>'\n"), 2);
+		print_error(ft_strdup("minishell: syntax error near\
+ unexpected token '>'\n"), 2);
 	else if (n == 3 && lexlast(data->lexer)->redir == APPEND)
-		print_error(ft_strdup("minishell: syntax error near unexpected token '>>'\n"), 2);
+		print_error(ft_strdup("minishell: syntax error near\
+ unexpected token '>>'\n"), 2);
 	return (0);
 }

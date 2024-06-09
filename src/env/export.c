@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:48:59 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:52:56 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:11:00 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	export_missing(t_env *env, t_env *export)
 	{
 		if (env_tmp->name[0] != '_')
 		{
-			while (export_tmp && ft_strncmp(env_tmp->name, export_tmp->name, ft_strlen(env_tmp->name)))
+			while (export_tmp && ft_strncmp(env_tmp->name, export_tmp->name,
+					ft_strlen(env_tmp->name)))
 				export_tmp = export_tmp->next;
 			if (!export_tmp)
 				return (1);
@@ -62,7 +63,7 @@ int	is_before(t_env **export, char *target, char *envp)
 {
 	int		result;
 	int		letter;
-	
+
 	result = 0;
 	letter = 0;
 	while (!result && (target[letter] != '\0' || envp[letter] != '\0'))
@@ -86,7 +87,7 @@ int	is_in_export(t_env **export, char *target)
 
 	max = 0;
 	while (target[max] != '=')
-		max++;	
+		max++;
 	tmp = *export;
 	while (tmp)
 	{

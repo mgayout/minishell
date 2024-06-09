@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:26:30 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:51:58 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:38:34 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	first_elem(t_data *data, t_par *new, t_lex *lexer)
 	else
 	{
 		new->id = parlast(data->parser)->id + 1;
-		new->pipein = true;	
+		new->pipein = true;
 	}
 	if (lexer->type == STRING)
 	{

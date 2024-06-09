@@ -6,11 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:19:20 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:51:43 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 20:59:24 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	free_exp(t_exp **expander)
 {
@@ -35,8 +35,6 @@ void	free_exe(t_exe **exec)
 	t_exe	*tmp;
 
 	tmp = *exec;
-	//if (tmp->heredoc)
-		//unlink(".temp");
 	free(tmp->child);
 	free(tmp->pid);
 	free(tmp->pipefd);

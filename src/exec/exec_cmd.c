@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:55:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:52:37 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:31:37 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,11 @@
 
 void	children(t_data *data, t_pid child)
 {
-	t_env	*path;
-
 	if (child.lst->builtin > 0)
 		exec_builtins(data, child);
 	else
 	{
-		path = data->env;
-		while (path)
-		{
-			if (!ft_strncmp(path->name, "PATH", 5))
-				break;
-			path = path->next;
-		}
-		child.arg1 = create_arg1(path, child.lst->cmd);
+		child.arg1 = create_arg1(data, child.lst->cmd);
 		if (child.arg1)
 			child.arg2 = create_arg2(child);
 		if (child.arg1 && child.arg2)
@@ -39,17 +30,20 @@ void	children(t_data *data, t_pid child)
 			exit(1);
 		}
 		else
-			print_error(ft_strjoin(child.lst->cmd, ": command not found\n"), 127);
+			print_error(ft_strjoin(child.lst->cmd,
+					": command not found\n"), 127);
 		exit(127);
 	}
 }
 
-char	*create_arg1(t_env *path, char *str)
+char	*create_arg1(t_data *data, char *str)
 {
+	t_env	*path;
 	char	**path_arg;
 	char	*path_cmd;
 	int		i;
 
+	path = search_path(data);
 	if (!path)
 		return (NULL);
 	path_arg = ft_split(path->value, ':');
@@ -69,6 +63,20 @@ char	*create_arg1(t_env *path, char *str)
 	if (access(str, 0) == 0)
 		return (str);
 	return (NULL);
+}
+
+t_env	*search_path(t_data *data)
+{
+	t_env	*path;
+
+	path = data->env;
+	while (path)
+	{
+		if (!ft_strncmp(path->name, "PATH", 5))
+			break ;
+		path = path->next;
+	}
+	return (path);
 }
 
 char	**create_arg2(t_pid child)

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:28:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 17:41:22 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 17:30:16 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,14 @@ int	main(int argc, char **argv, char *envp[])
 
 int	minishell_loop(t_data *data)
 {
-	data->prompt = readline("minishell:");
+	data->prompt = readline(PROMPT);
 	if (init_prompt(data) && init_data(data))
 	{
 		if (lexer(data) && check_lexer(data, data->lexer))
 		{
-			//print_lex(data);
 			if (parser(data) && check_parser(data, data->parser))
 			{
-				//print_par(data);
 				expander(data);
-				//print_exp(data);
 				exec(data);
 			}
 		}
@@ -65,13 +62,14 @@ int	init_prompt(t_data *data)
 		return (status);
 	while (data->prompt[i] && status == 0)
 	{
-		if ((data->prompt[i] >= 9 && data->prompt[i] <= 13) || data->prompt[i] == ' ')
+		if ((data->prompt[i] >= 9 && data->prompt[i] <= 13)
+			|| data->prompt[i] == ' ')
 			i++;
 		else
 			status = 1;
 	}
-	if (!data->last_prompt || (data->last_prompt
-		&& ft_strncmp(data->last_prompt, data->prompt, ft_strlen(data->prompt))))
+	if (!data->last_prompt
+		|| ft_strncmp(data->last_prompt, data->prompt, ft_strlen(data->prompt)))
 		add_history(data->prompt);
 	if (data->last_prompt)
 		free(data->last_prompt);
@@ -95,7 +93,8 @@ int	init_data(t_data *data)
 		return (0);
 	while (env)
 	{
-		data->envp[i] = ft_strjoin_free(ft_strjoin_free(env->name, "=", 0), env->value, 1);
+		data->envp[i] = ft_strjoin_free(ft_strjoin(env->name, "="),
+				env->value, 1);
 		i++;
 		env = env->next;
 	}

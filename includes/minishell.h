@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 17:08:40 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:30:04 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@
 # include "../libft+/ft_printf+/ft_printf.h"
 # include "../libft+/get_next_line+/get_next_line.h"
 
-typedef struct	s_global
+# define PROMPT "\033[0;31mm\033[0;33mi\033[1;33mn\033[1;32mi\033[0;32m\
+s\033[0;36mh\033[0;34me\033[0;35ml\033[1;35ml\033[1;31m$\033[0m "
+
+typedef struct s_global
 {
 	int				error;
 }					t_global;
@@ -147,7 +150,7 @@ typedef struct s_env
 	struct s_env	*prev;
 }				t_env;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	char			**envp;
 	struct s_env	*env;
@@ -227,6 +230,7 @@ void	paradd_back(t_par **lst, t_par *new);
 int		check_parser(t_data *data, t_par *parser);
 void	check_heredoc(t_par *parser);
 int		check_infile(t_data *data, t_par *parser);
+int		print_check_infile(char *file);
 int		check_outfile(t_data *data, t_par *parser, t_lex_redir n);
 int		create_outfile(t_lstr *last, char *file, t_lex_redir n);
 int		check_last_infile(t_data *data, t_par *parser);
@@ -270,7 +274,8 @@ void	outfile_pipeline(t_data *data, t_pid child);
 int		init_heredoc(t_data *data, char *stop);
 //EXEC_CMD
 void	children(t_data *data, t_pid child);
-char	*create_arg1(t_env *path, char *str);
+char	*create_arg1(t_data *data, char *str);
+t_env	*search_path(t_data *data);
 char	**create_arg2(t_pid child);
 //BUILTINS
 void	exec_builtins(t_data *data, t_pid child);
@@ -315,6 +320,6 @@ void	free_exp(t_exp **expander);
 void	free_exe(t_exe **exec);
 void	free_tab(char **tabs);
 
-extern t_global g_global;
+extern t_global	g_global;
 
 #endif

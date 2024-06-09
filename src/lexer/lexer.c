@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:10:19 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:59:51 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:35:42 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	add_new_t_lex(t_data *data, t_lex **lexer, int i, bool space)
 	new = new_lex();
 	if (!new)
 		return (-1);
-	if (data->prompt[i] == '>' || data->prompt[i] == '<' || data->prompt[i] == '|')
+	if (data->prompt[i] == '>' || data->prompt[i] == '<'
+		|| data->prompt[i] == '|')
 		i += token_type(new, &data->prompt[i]);
 	else
 		i = string_type(data, i, new, space);
@@ -55,16 +56,20 @@ int	check_quote(t_data *data)
 	int	err;
 
 	err = count_quotes(data->prompt);
-	if (err == 1)
+	if (err == 2)
 	{
-		ft_putstr_fd("minishell: unexpected EOF while looking for matching '''\n", 2);
-		print_error("minishell: syntax error: unexpected end of file\n", 2);
+		ft_putstr_fd("minishell: unexpected EOF while looking \
+for matching '''\n", 2);
+		print_error(ft_strdup("minishell: syntax error: \
+unexpected end of file\n"), 2);
 		return (1);
 	}
-	else if (err == 2)
+	else if (err == 1)
 	{
-		ft_putstr_fd("minishell: unexpected EOF while looking for matching '\"'\n", 2);
-		print_error("minishell: syntax error: unexpected end of file\n", 2);
+		ft_putstr_fd("minishell: unexpected EOF while looking \
+for matching '\"'\n", 2);
+		print_error(ft_strdup("minishell: syntax error: \
+unexpected end of file\n"), 2);
 		return (1);
 	}
 	return (0);

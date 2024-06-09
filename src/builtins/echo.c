@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:45:51 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 17:39:05 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:01:31 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	echo_builtin(t_pid child)
 	else if (!echo_arg(child.lst))
 	{
 		ft_putstr_fd(child.lst->arg, 1);
-		ft_putstr_fd("\n", 1);	
+		ft_putstr_fd("\n", 1);
 	}
 	else
 		ft_putstr_fd(child.lst->arg, 1);
@@ -28,7 +28,7 @@ void	echo_builtin(t_pid child)
 
 int	echo_arg(t_exp *lst)
 {
-	int begin;
+	int	begin;
 	int	status;
 	int	i;
 

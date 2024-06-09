@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:33 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 18:16:33 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:00:59 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	cd_builtin(t_data *data, t_pid child)
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->name, "PWD", ft_strlen("PWD")))
-			break;
+			break ;
 		tmp = tmp->next;
 	}
 	if (getcwd(cwd, sizeof(cwd)))
@@ -49,10 +49,12 @@ int	is_a_directory(char *str)
 	}
 	file = open(str, O_RDONLY);
 	if (file == -1)
-		print_error(ft_strjoin_free(ft_strjoin("minishell: cd: ", str), ": No such file or directory\n", 1), 1);
+		print_error(ft_strjoin_free(ft_strjoin("minishell: cd: ", str),
+				": No such file or directory\n", 1), 1);
 	else
 	{
-		print_error(ft_strjoin_free(ft_strjoin("minishell: cd: ", str), ": Not a directory\n", 1), 1);
+		print_error(ft_strjoin_free(ft_strjoin("minishell: cd: ", str),
+				": Not a directory\n", 1), 1);
 		close(file);
 	}
 	return (1);

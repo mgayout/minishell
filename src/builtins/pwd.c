@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:59 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 18:38:36 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:07:40 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pwd_builtin(t_data *data, t_pid child)
 
 	if (child.lst->arg)
 		if (pwd_error(child.lst->arg))
-			return;
+			return ;
 	tmp = data->env;
 	while (tmp)
 	{
@@ -36,7 +36,8 @@ int	pwd_error(char *arg)
 {
 	if (arg[0] == '-' && &arg[1])
 	{
-		print_error(ft_strjoin_free(ft_strjoin("minishell: pwd: ", arg), ": invalid option\n", 1), 2);
+		print_error(ft_strjoin_free(ft_strjoin("minishell: pwd: ", arg),
+				": invalid option\n", 1), 2);
 		return (1);
 	}
 	return (0);
