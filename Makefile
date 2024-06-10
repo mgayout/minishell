@@ -6,7 +6,7 @@
 #    By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 09:16:25 by mgayout           #+#    #+#              #
-#    Updated: 2024/06/10 01:10:58 by mgayout          ###   ########.fr        #
+#    Updated: 2024/06/10 12:23:12 by mgayout          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ RLFLAG		= -lreadline
 GREEN=\033[0;32m
 BLUE=\033[0;36m
 RED=\033[0;31m
-CLEAR_PREVIOUS_LINE  := "\033[2K\r"
+CLEAR_PREVIOUS_LINE = \033[2K\r
+MOVE_CURSOR_UP = \033[1A
 
 SRCDIR 		= src
 OBJDIR 		= obj
@@ -31,8 +32,7 @@ HEADER		= ./includes/minishell.h
 
 TOTAL_OBJS	= $(words $(OBJS))
 COUNTER		= 0
-MSG_COUNT	= 0
-MSG_LIMIT	= 5
+MSG_COUNTER = 0
 
 centered_echo = \
   MESSAGE="$1"; \
@@ -57,7 +57,14 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(eval COUNTER=$(shell echo $$(($(COUNTER)+1))))
 	@$(call centered_echo, "Compiling" $< ($$(($(COUNTER)))/$(TOTAL_OBJS)), $(BLUE))
-	@echo $(CLEAR_PREVIOUS_LINE)
+	@$(eval MSG_COUNTER=$(shell echo $$(($(MSG_COUNTER)+1))))
+	@if [ $$(($(MSG_COUNTER) % 5)) -eq 0 ]; then \
+			printf "$(MOVE_CURSOR_UP)$(CLEAR_PREVIOUS_LINE)"; \
+			printf "$(MOVE_CURSOR_UP)$(CLEAR_PREVIOUS_LINE)"; \
+			printf "$(MOVE_CURSOR_UP)$(CLEAR_PREVIOUS_LINE)"; \
+			printf "$(MOVE_CURSOR_UP)$(CLEAR_PREVIOUS_LINE)"; \
+			printf "$(MOVE_CURSOR_UP)$(CLEAR_PREVIOUS_LINE)"; \
+    fi
 	@gcc $(CFLAG) -I$(INCLUDE) -c $< -o $@
 
 clean:

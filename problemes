@@ -1,11 +1,13 @@
-export :
+echo -n :
 
-- a =b : Segfault
+Il peut y avoir jusu'a 2 caracteres differents apres -n
 
-- a=b 3=e : a n'est pas ajoute
+-n12 = oui
+-n12n12n12 = oui
+-n123 = non
 
-- 3=e a=b : a n'est pas ajoute
+Le -n retire les espaces
 
-cd :
+exec :
 
-- cd a b : too many argu
+un seul waitpid pour le pid final

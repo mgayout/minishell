@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:19:20 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 20:59:24 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 12:57:05 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	free_exp(t_exp **expander)
 		tmp = *expander;
 		*expander = (*expander)->next;
 		free(tmp->cmd);
-		free(tmp->arg);
+		if (tmp->arg)
+			free(tmp->arg);
 		if (tmp->infile)
 			free(tmp->infile);
 		if (tmp->outfile)
@@ -36,7 +37,8 @@ void	free_exe(t_exe **exec)
 
 	tmp = *exec;
 	free(tmp->child);
-	free(tmp->pid);
+	if (tmp->pid)
+		free(tmp->pid);
 	free(tmp->pipefd);
 }
 

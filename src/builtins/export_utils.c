@@ -6,54 +6,58 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 12:22:12 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:07:17 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:13:00 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_export_arg(char **args)
+void	check_export_arg(t_data *data, char **args)
 {
-	char	**split_arg;
 	int		i;
 
 	i = 0;
 	while (args[i])
 	{
-		split_arg = ft_split(args[i], '=');
-		if (check_name_arg(split_arg[0]))
+		if (args[i][0] == '=')
 		{
-			free_tab(split_arg);
-			return (1);
+			print_error(ft_strdup("minishell: export: '=': \
+not a valid identifier\n"), 1);
+		}
+		else if (!check_name_arg(ft_split(args[i], '=')))
+		{
+			init_new_export(data, args[i]);
+			if (ft_strchr(args[i], '='))
+				init_new_env(data, args[i]);
 		}
 		i++;
-		free_tab(split_arg);
 	}
-	return (0);
 }
 
-int	check_name_arg(char *arg)
+int	check_name_arg(char **arg)
 {
 	int	i;
 
 	i = 0;
-	if (!arg)
+	if (!arg[0])
 	{
 		print_error(ft_strdup("minishell: export: '=': \
 not a valid identifier\n"), 1);
 		return (1);
 	}
-	while (arg[i])
+	while (arg[0][i])
 	{
-		if ((arg[i] < 'a' || arg[i] > 'z')
-			&& (arg[i] < 'A' || arg[i] > 'Z'))
+		if ((arg[0][i] < 'a' || arg[0][i] > 'z')
+			&& (arg[0][i] < 'A' || arg[0][i] > 'Z'))
 		{
-			print_error(ft_strjoin_free(ft_strjoin("minishell: export: '", arg),
-					"': not a valid identifier\n", 1), 1);
+			print_error(ft_strjoin_free(ft_strjoin("minishell: export: '",
+						arg[0]), "': not a valid identifier\n", 1), 1);
+			free_tab(arg);
 			return (1);
 		}
 		i++;
 	}
+	free_tab(arg);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:33 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:00:59 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 13:32:00 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	cd_builtin(t_data *data, t_pid child)
 
 	if (!child.lst->arg)
 		return ;
+	if (ft_strchr(child.lst->arg, ' '))
+	{
+		print_error(ft_strdup("minishell: cd: too many arguments\n"), 1);
+		return ;
+	}
 	if (is_a_directory(child.lst->arg))
 		return ;
 	chdir(child.lst->arg);

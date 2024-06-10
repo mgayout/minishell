@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:47:23 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:03:48 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 13:56:33 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,15 @@
 void	export_builtin(t_data *data, t_pid child)
 {
 	char	**args;
-	int		i;
 
 	if (!child.lst->arg)
-		print_export(data);
-	else
 	{
-		i = 0;
-		args = ft_split(child.lst->arg, ' ');
-		if (!check_export_arg(args))
-		{
-			while (args[i])
-			{
-				init_new_export(data, args[i]);
-				if (ft_strchr(args[i], '='))
-					init_new_env(data, args[i]);
-				i++;
-			}
-		}
-		free_tab(args);
+		print_export(data);
+		return ;
 	}
+	args = ft_split(child.lst->arg, ' ');
+	check_export_arg(data, args);
+	free_tab(args);
 }
 
 void	init_new_export(t_data *data, char *arg)

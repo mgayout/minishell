@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 20:59:20 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 12:36:14 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ void	free_par(t_par **parser)
 			free_lstr(&(*parser)->infile_lst);
 		if ((*parser)->heredoc_lst)
 			free_lstr(&(*parser)->heredoc_lst);
+		if ((*parser)->last_infile)
+			free_lstr(&(*parser)->last_infile);
 		if ((*parser)->outfile_lst)
 			free_lstr(&(*parser)->outfile_lst);
 		if ((*parser)->append_lst)
 			free_lstr(&(*parser)->append_lst);
-		if ((*parser)->last_infile)
-			free_lstr(&(*parser)->last_infile);
 		if ((*parser)->last_outfile)
 			free_lstr(&(*parser)->last_outfile);
 		*parser = (*parser)->next;

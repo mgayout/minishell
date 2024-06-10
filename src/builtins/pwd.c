@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:59 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:07:40 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 16:55:24 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	pwd_builtin(t_data *data, t_pid child)
 		}
 		tmp = tmp->next;
 	}
+	free_all(data, 1);
 	exit(g_global.error);
 }
 

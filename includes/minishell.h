@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:30:04 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:06:59 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@
 # include "../libft+/ft_printf+/ft_printf.h"
 # include "../libft+/get_next_line+/get_next_line.h"
 
-# define PROMPT "\033[0;31mm\033[0;33mi\033[1;33mn\033[1;32mi\033[0;32m\
-s\033[0;36mh\033[0;34me\033[0;35ml\033[1;35ml\033[1;31m$\033[0m "
-
 typedef struct s_global
 {
 	int				error;
 }					t_global;
+
+extern t_global		g_global;
 
 typedef struct s_exe
 {
@@ -236,8 +235,9 @@ int		create_outfile(t_lstr *last, char *file, t_lex_redir n);
 int		check_last_infile(t_data *data, t_par *parser);
 int		check_last_outfile(t_data *data, t_par *parser);
 void	wrong_heredoc(char *stop);
-int		expander(t_data *data);
-int		init_expander(t_data *data, t_exp **expander, t_par *parser);
+//EXPANDER
+void	expander(t_data *data);
+void	init_expander(t_data *data, t_exp **expander, t_par *parser);
 //EXPANDER_INIT
 char	*dollar_exp(t_data *data, t_lstr *lst);
 //EXPANDER_ENV
@@ -280,8 +280,9 @@ char	**create_arg2(t_pid child);
 //BUILTINS
 void	exec_builtins(t_data *data, t_pid child);
 //ECHO
-void	echo_builtin(t_pid child);
+void	echo_builtin(t_data *data, t_pid child);
 int		echo_arg(t_exp *lst);
+char	*echo_new_arg(char	*old_arg, int i);
 //CD
 void	cd_builtin(t_data *data, t_pid child);
 int		is_a_directory(char *str);
@@ -295,8 +296,8 @@ void	init_new_env(t_data *data, char *arg);
 void	find_pos_export(t_data *data, t_env *new);
 void	add_new_export(t_env *pos, t_env *new);
 //EXPORT_UTILS
-int		check_export_arg(char **args);
-int		check_name_arg(char *arg);
+void	check_export_arg(t_data *data, char **args);
+int		check_name_arg(char **arg);
 void	print_export(t_data *data);
 //UNSET
 void	unset_builtin(t_data *data, t_pid child);
@@ -319,7 +320,5 @@ void	free_par(t_par **parser);
 void	free_exp(t_exp **expander);
 void	free_exe(t_exe **exec);
 void	free_tab(char **tabs);
-
-extern t_global	g_global;
 
 #endif

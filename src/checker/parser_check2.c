@@ -23,7 +23,7 @@ int	create_outfile(t_lstr *last, char *file, t_lex_redir n)
 	if (n == OUTFILE)
 		open(file, O_CREAT, 0777);
 	else if (n == APPEND)
-		open(file, O_TRUNC, O_CREAT, 0777);
+		open(file, O_APPEND, O_CREAT, 0777);
 	free(file);
 	return (0);
 }
@@ -36,7 +36,7 @@ int	check_last_infile(t_data *data, t_par *parser)
 	tmp = parser->last_infile;
 	file = NULL;
 	if (parser->heredoc)
-		return (1);
+		return (0);
 	while (tmp)
 	{
 		if (!file)
@@ -74,6 +74,7 @@ int	check_last_outfile(t_data *data, t_par *parser)
 				": ambiguous redirect\n", 1), 1);
 		return (1);
 	}
+	free(file);
 	return (0);
 }
 

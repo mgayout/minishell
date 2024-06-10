@@ -6,13 +6,13 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:45:51 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:01:31 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:07:18 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	echo_builtin(t_pid child)
+void	echo_builtin(t_data *data, t_pid child)
 {
 	if (!child.lst->arg)
 		ft_putstr_fd("\n", 1);
@@ -23,6 +23,7 @@ void	echo_builtin(t_pid child)
 	}
 	else
 		ft_putstr_fd(child.lst->arg, 1);
+	free_all(data, 1);
 	exit(0);
 }
 
@@ -42,7 +43,7 @@ int	echo_arg(t_exp *lst)
 			if (!ft_strncmp(&lst->arg[i], "-n ", 3))
 			{
 				status = 1;
-				lst->arg = ft_substr(lst->arg, i + 3, ft_strlen(lst->arg) - 2);
+				lst->arg = echo_new_arg(lst->arg, i);
 				i = 0;
 			}
 			else
@@ -52,4 +53,13 @@ int	echo_arg(t_exp *lst)
 			begin = 1;
 	}
 	return (status);
+}
+
+char	*echo_new_arg(char	*old_arg, int i)
+{
+	char	*new;
+	
+	new = ft_substr(old_arg, i + 3, ft_strlen(old_arg) - 2);
+	free (old_arg);
+	return (new);
 }

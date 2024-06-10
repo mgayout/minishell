@@ -6,11 +6,13 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:28:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 17:30:16 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:15:01 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_global	g_global;
 
 void	print_error(char *error_msg, int error_code)
 {
@@ -35,7 +37,7 @@ int	main(int argc, char **argv, char *envp[])
 
 int	minishell_loop(t_data *data)
 {
-	data->prompt = readline(PROMPT);
+	data->prompt = readline("minishell$ ");
 	if (init_prompt(data) && init_data(data))
 	{
 		if (lexer(data) && check_lexer(data, data->lexer))

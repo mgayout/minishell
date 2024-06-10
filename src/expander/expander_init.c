@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:57:52 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:52:25 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:32:05 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*dollar_exp(t_data *data, t_lstr *lst)
 	char	*new;
 	t_lstr	*tmp;
 
-	new = NULL;
 	tmp = lst;
 	while (tmp)
 	{
@@ -25,12 +24,16 @@ char	*dollar_exp(t_data *data, t_lstr *lst)
 		{
 			new = modify_lstr(data, tmp->str);
 			free(tmp->str);
-			tmp->str = ft_strdup(new);
+			if (new)
+			{
+				tmp->str = ft_strdup(new);
+				free(new);	
+			}
+			else
+				tmp->str = NULL;
 		}
 		tmp = tmp->next;
 	}
-	if (new)
-		free(new);
 	new = lstrjoin(lst);
 	return (new);
 }

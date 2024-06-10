@@ -6,13 +6,11 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:34:44 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:52:20 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 16:31:31 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-t_global	g_global;
 
 char	*modify_lstr(t_data *data, char *str)
 {

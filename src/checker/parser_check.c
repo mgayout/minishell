@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:09:21 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:09:44 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/10 13:17:38 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_parser(t_data *data, t_par *parser)
 			return (0);
 		if (tmp->outfile_lst && check_outfile(data, tmp, OUTFILE))
 			return (0);
-		if (tmp->outfile_lst && check_outfile(data, tmp, APPEND))
+		if (tmp->append_lst && check_outfile(data, tmp, APPEND))
 			return (0);
 		if (tmp->last_outfile && check_last_outfile(data, tmp))
 			return (0);
