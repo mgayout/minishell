@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:49:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 12:36:14 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/11 11:43:09 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	free_all(t_data *data, int status)
 	{
 		free_env(data->env);
 		free_env(data->export);
-		free(data->last_prompt);
+		if (data->last_prompt)
+			free(data->last_prompt);
 		rl_clear_history();
 	}
 }

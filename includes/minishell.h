@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 17:06:59 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/11 18:14:21 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 typedef struct s_global
 {
 	int				error;
+	int				heredoc;
 }					t_global;
 
 extern t_global		g_global;
@@ -161,11 +162,12 @@ typedef struct s_data
 	struct s_exp	*expander;
 	struct s_exe	*exec;
 }				t_data;
+
 //MAIN
 void	print_error(char *error_msg, int error_code);
 int		minishell_loop(t_data *data);
+void	init_data(t_data *data);
 int		init_prompt(t_data *data);
-int		init_data(t_data *data);
 //ENV
 t_env	*init_env(char **envp);
 void	fill_env(t_env **env, char *envp);
@@ -180,6 +182,11 @@ int		is_in_export(t_env **export, char *target);
 t_env	*envlast(t_env *lst);
 int		envsize(t_env *lst);
 void	envadd_back(t_env **lst, t_env *new);
+//SIGNALS
+void	sigint_handler(int signum);
+void	sigint_handler_heredoc(int signum);
+void	setup_signal_handlers(bool heredoc);
+void	handle_signal(t_data *data, char *prompt);
 //LEXER
 int		lexer(t_data *data);
 int		add_new_t_lex(t_data *data, t_lex **lexer, int i, bool space);
@@ -195,7 +202,6 @@ int		data_dquote(t_lex *lexer,
 			char *prompt, bool space);
 //LEX_UTILS
 int		count_quotes(char *prompt);
-void	print_lex(t_data *data);
 //LEX_FUNCTION
 t_lex	*new_lex(void);
 t_lex	*lexlast(t_lex *lst);
@@ -214,7 +220,6 @@ int		error_type(t_data *data, int n);
 int		parser(t_data *data);
 t_lex	*init_parser(t_data *data, t_lex *lexer);
 int		parser_type(t_data *data, t_par *new, t_lex *lexer);
-void	print_par(t_data *data);
 //PARSER_INIT
 void	first_elem(t_data *data, t_par *new, t_lex *lexer);
 void	infile_parser(t_par *parser, t_lex *lexer);
@@ -235,6 +240,7 @@ int		create_outfile(t_lstr *last, char *file, t_lex_redir n);
 int		check_last_infile(t_data *data, t_par *parser);
 int		check_last_outfile(t_data *data, t_par *parser);
 void	wrong_heredoc(char *stop);
+void	handle_signal_heredoc(char *prompt);
 //EXPANDER
 void	expander(t_data *data);
 void	init_expander(t_data *data, t_exp **expander, t_par *parser);
@@ -249,7 +255,6 @@ char	*strjoinjoin(char *begin, char *new, char *end, char *str);
 int		count_dollar(char *str);
 char	**copy_tab(char **old);
 int		is_a_builtin(char *cmd);
-void	print_exp(t_data *data);
 //EXPANDER_FUNCTION
 t_exp	*new_exp(void);
 t_exp	*explast(t_exp *lst);
@@ -282,7 +287,8 @@ void	exec_builtins(t_data *data, t_pid child);
 //ECHO
 void	echo_builtin(t_data *data, t_pid child);
 int		echo_arg(t_exp *lst);
-char	*echo_new_arg(char	*old_arg, int i);
+int		is_an_option(char *arg);
+char	*echo_new_arg(char	*old_arg);
 //CD
 void	cd_builtin(t_data *data, t_pid child);
 int		is_a_directory(char *str);

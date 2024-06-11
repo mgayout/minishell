@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:28:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 14:15:01 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/11 18:18:41 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@ int	main(int argc, char **argv, char *envp[])
 	data.export = init_export(data.env, envp);
 	data.last_prompt = NULL;
 	g_global.error = 0;
+	g_global.heredoc = 0;
+	setup_signal_handlers(false);
 	minishell_loop(&data);
 	return (0);
 }
 
 int	minishell_loop(t_data *data)
 {
+	init_data(data);
 	data->prompt = readline("minishell$ ");
-	if (init_prompt(data) && init_data(data))
+	handle_signal(data, data->prompt);
+	if (init_prompt(data))
 	{
 		if (lexer(data) && check_lexer(data, data->lexer))
 		{
@@ -70,8 +74,8 @@ int	init_prompt(t_data *data)
 		else
 			status = 1;
 	}
-	if (!data->last_prompt
-		|| ft_strncmp(data->last_prompt, data->prompt, ft_strlen(data->prompt)))
+	if (!data->last_prompt || ft_strncmp(data->last_prompt,
+			data->prompt, ft_strlen(data->prompt) + 1))
 		add_history(data->prompt);
 	if (data->last_prompt)
 		free(data->last_prompt);
@@ -79,20 +83,25 @@ int	init_prompt(t_data *data)
 	return (status);
 }
 
-int	init_data(t_data *data)
+void	init_data(t_data *data)
 {
 	t_env	*env;
 	int		i;
 
 	env = data->env;
 	i = 0;
+	g_global.heredoc = 0;
 	data->lexer = NULL;
 	data->parser = NULL;
 	data->expander = NULL;
 	data->exec = NULL;
 	data->envp = malloc(sizeof(char *) * (envsize(data->env) + 1));
 	if (!data->envp)
-		return (0);
+	{
+		print_error(ft_strdup("minishell: malloc error\n"), 1);
+		free_all(data, 1);
+		exit(g_global.error);
+	}
 	while (env)
 	{
 		data->envp[i] = ft_strjoin_free(ft_strjoin(env->name, "="),
@@ -101,5 +110,4 @@ int	init_data(t_data *data)
 		env = env->next;
 	}
 	data->envp[i] = NULL;
-	return (1);
 }

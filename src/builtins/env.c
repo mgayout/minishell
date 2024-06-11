@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:48:17 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 16:55:35 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/11 11:21:15 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	env_builtin(t_data *data, t_pid child)
 {
-	printf("env\n");
 	t_env	*tmp;
 
 	if (child.lst->arg && (child.lst->arg[0] == '-' && &child.lst->arg[1]))

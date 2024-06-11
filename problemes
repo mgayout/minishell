@@ -1,13 +1,3 @@
-echo -n :
-
-Il peut y avoir jusu'a 2 caracteres differents apres -n
-
--n12 = oui
--n12n12n12 = oui
--n123 = non
-
-Le -n retire les espaces
-
 exec :
 
 un seul waitpid pour le pid final

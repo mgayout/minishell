@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:29:25 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 17:21:40 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/11 11:21:33 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	exec_pipeline(t_data *data)
 		if (child.lst->builtin <= 3)
 			data->exec->pid[i] = fork();
 		open_file_pipeline(data, child);
-		if (child.lst->builtin > 3 || !data->exec->pid[i] )
+		if (child.lst->builtin > 3 || !data->exec->pid[i])
 			children(data, child);
 		if (child.lst->builtin <= 3)
 		{

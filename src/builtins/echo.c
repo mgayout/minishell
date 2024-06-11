@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:45:51 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 17:07:18 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/11 11:20:52 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,55 @@ int	echo_arg(t_exp *lst)
 {
 	int	begin;
 	int	status;
-	int	i;
 
 	begin = 0;
 	status = 0;
-	i = 0;
-	while (begin == 0 && lst->arg[i])
+	while (begin == 0 && lst->arg)
 	{
-		if (lst->arg[i] == ' ' || lst->arg[i] == '-')
+		if (is_an_option(lst->arg))
 		{
-			if (!ft_strncmp(&lst->arg[i], "-n ", 3))
-			{
-				status = 1;
-				lst->arg = echo_new_arg(lst->arg, i);
-				i = 0;
-			}
-			else
-				i++;
+			status = 1;
+			lst->arg = echo_new_arg(lst->arg);
 		}
 		else
-			begin = 1;
+			break ;
 	}
 	return (status);
 }
 
-char	*echo_new_arg(char	*old_arg, int i)
+int	is_an_option(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		if (arg[i] != '-')
+			return (0);
+		else
+			i++;
+		while (arg[i] == 'n')
+			i++;
+		if ((arg[i] >= 9 && arg[i] <= 13) || arg[i] == ' ' || arg[i] == '\0')
+			break ;
+		else
+			return (0);
+	}
+	return (1);
+}
+
+char	*echo_new_arg(char	*old_arg)
 {
 	char	*new;
-	
-	new = ft_substr(old_arg, i + 3, ft_strlen(old_arg) - 2);
+	int		i;
+
+	i = 1;
+	while (old_arg && old_arg[i] == 'n')
+		i++;
+	while (old_arg && ((old_arg[i] >= 9 && old_arg[i] <= 13)
+			|| old_arg[i] == ' '))
+		i++;
+	new = ft_substr(old_arg, i, ft_strlen(old_arg) - (i - 1));
 	free (old_arg);
 	return (new);
 }

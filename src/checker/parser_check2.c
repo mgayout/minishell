@@ -82,14 +82,27 @@ void	wrong_heredoc(char *stop)
 {
 	char	*buf;
 
-	while (1)
+	setup_signal_handlers(true);
+	while (!g_global.heredoc)
 	{
-		write(STDOUT_FILENO, "> ", 2);
-		buf = get_next_line(STDIN_FILENO);
-		if (ft_strncmp(buf, stop, ft_strlen(buf) - 1) == 0
-			&& ft_strlen(buf) == ft_strlen(stop) + 1)
+		buf = readline("> ");
+		handle_signal_heredoc(buf);
+		if (g_global.heredoc != 0 || (ft_strncmp(buf, stop,
+					ft_strlen(buf) - 1) == 0
+				&& ft_strlen(buf) == ft_strlen(stop) + 1))
 			break ;
 		free(buf);
 	}
+	setup_signal_handlers(false);
 	free(buf);
+}
+
+void	handle_signal_heredoc(char *prompt)
+{
+	if (!prompt)
+	{
+		ft_putstr_fd("minishell : warning: here-document delimited \
+by end-of-file (wanted 'stop')\n", 2);
+		g_global.heredoc = 1;
+	}
 }
