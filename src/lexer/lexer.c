@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:10:19 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:35:42 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 12:17:27 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	lexer(t_data *data)
 		if (i < 0)
 			return (0);
 	}
-	free(data->prompt);
 	return (1);
 }
 

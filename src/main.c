@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:28:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/11 18:18:41 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:55:30 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(int argc, char **argv, char *envp[])
 	data.export = init_export(data.env, envp);
 	data.last_prompt = NULL;
 	g_global.error = 0;
-	g_global.heredoc = 0;
+	g_global.heredoc = false;
+	g_global.temp = false;
 	setup_signal_handlers(false);
 	minishell_loop(&data);
 	return (0);
@@ -50,37 +51,16 @@ int	minishell_loop(t_data *data)
 			{
 				expander(data);
 				exec(data);
+				free_exp(&data->expander);
+				free_exe(&data->exec);
 			}
+			free_par(&data->parser);
 		}
-		free_all(data, 0);
+		free_lex(&data->lexer);
 	}
+	free_tab(data->envp);
+	free(data->prompt);
 	return (minishell_loop(data));
-}
-
-int	init_prompt(t_data *data)
-{
-	int	status;
-	int	i;
-
-	status = 0;
-	i = 0;
-	if (!data->prompt)
-		return (status);
-	while (data->prompt[i] && status == 0)
-	{
-		if ((data->prompt[i] >= 9 && data->prompt[i] <= 13)
-			|| data->prompt[i] == ' ')
-			i++;
-		else
-			status = 1;
-	}
-	if (!data->last_prompt || ft_strncmp(data->last_prompt,
-			data->prompt, ft_strlen(data->prompt) + 1))
-		add_history(data->prompt);
-	if (data->last_prompt)
-		free(data->last_prompt);
-	data->last_prompt = ft_strdup(data->prompt);
-	return (status);
 }
 
 void	init_data(t_data *data)
@@ -110,4 +90,30 @@ void	init_data(t_data *data)
 		env = env->next;
 	}
 	data->envp[i] = NULL;
+}
+
+int	init_prompt(t_data *data)
+{
+	int	status;
+	int	i;
+
+	status = 0;
+	i = 0;
+	if (!data->prompt)
+		return (status);
+	while (data->prompt[i] && status == 0)
+	{
+		if ((data->prompt[i] >= 9 && data->prompt[i] <= 13)
+			|| data->prompt[i] == ' ')
+			i++;
+		else
+			status = 1;
+	}
+	if (!data->last_prompt || ft_strncmp(data->last_prompt,
+			data->prompt, ft_strlen(data->prompt) + 1))
+		add_history(data->prompt);
+	if (data->last_prompt)
+		free(data->last_prompt);
+	data->last_prompt = ft_strdup(data->prompt);
+	return (status);
 }

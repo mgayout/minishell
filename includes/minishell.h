@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:16:35 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/11 18:14:21 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:13:42 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@
 typedef struct s_global
 {
 	int				error;
-	int				heredoc;
+	bool			heredoc;
+	bool			temp;
 }					t_global;
 
 extern t_global		g_global;
@@ -50,7 +51,6 @@ typedef struct s_exe
 	int				*pid;
 	int				nb_cmd;
 	int				status;
-	bool			temp;
 	struct s_pid	*child;
 }					t_exe;
 

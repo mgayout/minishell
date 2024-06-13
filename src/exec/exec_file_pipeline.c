@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:13:00 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 15:29:57 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:13:23 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	infile_pipeline(t_data *data, t_pid child)
 	else if (child.lst->infile && child.lst->heredoc)
 	{
 		child.infile = init_heredoc(data, child.lst->infile);
-		data->exec->temp = true;
+		g_global.temp = true;
 		dup2(child.infile, STDIN_FILENO);
 		close(data->exec->pipefd[0]);
 	}

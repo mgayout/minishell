@@ -87,13 +87,14 @@ void	wrong_heredoc(char *stop)
 	{
 		buf = readline("> ");
 		handle_signal_heredoc(buf);
-		if (g_global.heredoc != 0 || (ft_strncmp(buf, stop,
+		if (g_global.heredoc == true || (ft_strncmp(buf, stop,
 					ft_strlen(buf) - 1) == 0
 				&& ft_strlen(buf) == ft_strlen(stop) + 1))
 			break ;
 		free(buf);
 	}
 	setup_signal_handlers(false);
+	g_global.heredoc = false;
 	free(buf);
 }
 
@@ -103,6 +104,6 @@ void	handle_signal_heredoc(char *prompt)
 	{
 		ft_putstr_fd("minishell : warning: here-document delimited \
 by end-of-file (wanted 'stop')\n", 2);
-		g_global.heredoc = 1;
+		g_global.heredoc = true;
 	}
 }

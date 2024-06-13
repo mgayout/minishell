@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:53:27 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 17:23:14 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:13:29 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	infile_cmd(t_data *data, t_pid child)
 	else if (child.lst->infile && child.lst->heredoc)
 	{
 		infile = init_heredoc(data, child.lst->infile);
-		data->exec->temp = true;
+		g_global.temp = true;
 	}
 	else
 		infile = data->exec->std_in;

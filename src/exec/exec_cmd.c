@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:55:31 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:31:37 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:42:09 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ void	children(t_data *data, t_pid child)
 		exec_builtins(data, child);
 	else
 	{
-		child.arg1 = create_arg1(data, child.lst->cmd);
+		if (child.lst->cmd)
+			child.arg1 = create_arg1(data, child.lst->cmd);
 		if (child.arg1)
 			child.arg2 = create_arg2(child);
 		if (child.arg1 && child.arg2)
 		{
 			if (execve(child.arg1, child.arg2, data->envp) == -1)
-			{
 				exit(2);
-			}
-			exit(1);
 		}
-		else
+		else if (child.lst->cmd)
 			print_error(ft_strjoin(child.lst->cmd,
 					": command not found\n"), 127);
-		exit(127);
+		else
+			g_global.error = 130;
+		exit(g_global.error);
 	}
 }
 

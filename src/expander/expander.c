@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:24:36 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 17:32:49 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:34:11 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ void	init_expander(t_data *data, t_exp **expander, t_par *parser)
 		return ;
 	new->id = parser->id;
 	new->cmd = dollar_exp(data, parser->cmd);
-	if (!new->cmd)
-	{
-		free(new);
-		return ;
-	}
 	new->builtin = is_a_builtin(new->cmd);
 	new->arg = dollar_exp(data, parser->arg);
 	new->infile = dollar_exp(data, parser->last_infile);

@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:49:15 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/07 16:52:44 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:36:56 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_exe	*init_exe(t_exp *expander)
 	exec->nb_cmd = expsize(expander);
 	exec->std_in = dup(0);
 	exec->std_out = dup(1);
-	exec->temp = false;
 	exec->child = malloc(sizeof(t_pid) * exec->nb_cmd);
 	return (exec);
 }
@@ -34,6 +33,7 @@ t_pid	init_child(t_data *data)
 	t_exp	*tmp;
 	int		i;
 
+	child.arg1 = NULL;
 	child.infile = 0;
 	child.outfile = 0;
 	i = data->exec->status;

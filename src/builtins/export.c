@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:47:23 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/10 13:56:33 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 12:31:05 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	export_builtin(t_data *data, t_pid child)
 		print_export(data);
 		return ;
 	}
+	if (child.lst->pipeout)
+		return ;
 	args = ft_split(child.lst->arg, ' ');
 	check_export_arg(data, args);
 	free_tab(args);

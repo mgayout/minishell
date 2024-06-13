@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:48:41 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/08 21:02:55 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:08:16 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	print_exit(t_data *data, char *arg, int status)
 		print_error(ft_strjoin_free(ft_strjoin("exit\nminishell: exit: ", arg),
 				": numeric argument required\n", 1), 2);
 	free_all(data, 1);
+	unlink(".temp");
 	exit(g_global.error);
 }

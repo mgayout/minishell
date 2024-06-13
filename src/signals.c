@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 11:23:06 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/11 16:25:11 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:55:57 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	sigint_handler_heredoc(int signum)
 {
 	(void)signum;
 	ft_putstr_fd("\n", STDERR_FILENO);
-	g_global.heredoc = 2;
+	g_global.heredoc = true;
 }
 
 void	setup_signal_handlers(bool heredoc)
