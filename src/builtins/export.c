@@ -6,7 +6,7 @@
 /*   By: mgayout <mgayout@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:47:23 by mgayout           #+#    #+#             */
-/*   Updated: 2024/06/13 12:31:05 by mgayout          ###   ########.fr       */
+/*   Updated: 2024/06/14 15:21:36 by mgayout          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	init_new_export(t_data *data, char *arg)
 		if (!new->value)
 			new->value = ft_strdup(split_arg[i]);
 		else
-			new->value = ft_strjoin(new->value, ft_strjoin("=", split_arg[i]));
+			new->value = ft_strjoin_free(new->value,
+					ft_strjoin("=", split_arg[i]), 1);
 		i++;
 	}
 	find_pos_export(data, new);
@@ -116,6 +117,15 @@ void	add_new_export(t_env *pos, t_env *new)
 		pos->prev = new;
 	}
 	else if (!ft_strncmp(pos->name, new->name,
-			ft_strlen(pos->name)) && new->value)
-		pos->value = ft_strdup(new->value);
+			ft_strlen(pos->name)))
+	{
+		if (new->value)
+		{
+			free(pos->value);
+			pos->value = ft_strdup(new->value);
+			free(new->value);
+		}
+		free(new->name);
+		free(new);
+	}
 }
