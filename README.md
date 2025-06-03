@@ -1,11 +1,11 @@
-# <p align="center">LIBFT [Projet 42]</p>
+# <p align="center">MINISHELL [Projet 42]</p>
 
 <div align="center">
 	<table>
 		<tr><th>NOTE</th>
 		<th>ENGLISH VERSION</th></tr>
 		<tr><th><img src="https://github.com/mgayout/mgayout/blob/main/img/note/100.png" height="100"></th>
-		<th><a href= "https://github.com/mgayout/minishell/blob/main/eng/README.md"><img src="https://github.com/mgayout/mgayout/blob/main/img/english.png" height="100"></a></th></tr>
+		<th><a href= "https://github.com/mgayout/minishell/blob/master/eng/README.md"><img src="https://github.com/mgayout/mgayout/blob/main/img/english.png" height="100"></a></th></tr>
 	</table>
 </div>
 
@@ -13,7 +13,7 @@
 
 Le programme `minishell` est une simulation du terminal Bash.
 
-Il se doit de reproduire à l'identique chaque commandes, avec la possibilité d'utiliser `des pipes` et/ou `des redirections` ( |, <, <<, >, >> ) et `des variables d'environnement` (ex: ${USER}).
+Il se doit de reproduire à l'identique chaque commandes, avec la possibilité d'utiliser `des pipes` et/ou `des redirections` ( | < << > >> ) et `des variables d'environnement` (ex: ${USER}).
 
 Il doit aussi gérer `les signaux` comme CTRL-C et CTRL-D.
 

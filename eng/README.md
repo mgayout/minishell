@@ -1,4 +1,4 @@
-# <p align="center">LIBFT [42 Project]</p>
+# <p align="center">MINISHELL [42 Project]</p>
 
 <div align="center">
 	<table>
@@ -13,7 +13,7 @@
 
 The `minishell` program is a simulation of the Bash terminal.
 
-It must reproduce each command identically, with the ability to use `pipes` and/or `redirections` ( |, <, <<, >, >> ) and `environment variables` (e.g., ${USER}).
+It must reproduce each command identically, with the ability to use `pipes` and/or `redirections` ( | < << > >> ) and `environment variables` (e.g., ${USER}).
 
 It must also handle `signals` such as CTRL-C and CTRL-D.
 
